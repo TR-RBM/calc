@@ -1777,3 +1777,12 @@ fn zero_to_an_exponent_of_undecided_sign_is_refused_and_never_one() {
             .contains("calc could prove the exponent neither above 0 nor below 0")
     );
 }
+
+#[test]
+fn the_longest_chain_the_parser_accepts_is_worked_through_on_any_main_stack() {
+    let longest_chain = format!("1{}", " + 1".repeat(512));
+
+    let output = calc(&[longest_chain.as_str(), "--working"]);
+
+    assert!(output.status.success(), "{}", standard_error(&output));
+}

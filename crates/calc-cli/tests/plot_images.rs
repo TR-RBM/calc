@@ -1,5 +1,6 @@
 #![cfg(target_arch = "x86_64")]
 
+#[cfg(unix)]
 use std::os::unix::fs::PermissionsExt;
 use std::path::PathBuf;
 use std::process::Command;
@@ -181,6 +182,7 @@ fn an_output_path_whose_directory_is_missing_is_refused_by_name() {
     );
 }
 
+#[cfg(unix)]
 #[test]
 fn an_output_path_that_may_not_be_written_is_refused_by_name() {
     let directory = PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join("plot-read-only");

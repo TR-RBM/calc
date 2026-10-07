@@ -35,6 +35,8 @@ A line whose value is not a number does not let `calc` exit 0: a NaN in a result
 
 `calc --ode <system> --initial <values> --at <times>` encloses the solution of an initial value problem and prints, per time, each component between two decimals with its interval bound, then over the whole run each component's step bound and the method. The three options come together; a missing one is a usage error (exit 2). A problem that cannot be read or whose units do not fit exits 3; one the method cannot enclose, a blow-up or the step limit, exits 4, and the refusal at the step limit names the time scale of the last step.
 
+The binary answers on a thread of its own with a stack of 64 MiB rather than on the main thread, whose stack is 8 MiB on Linux and macOS but 1 MiB on Windows. The deepest expression the parser accepts, a chain of 512 operations, needs between 1 and 2 MiB in a release build and between 4 and 8 MiB in a debug build on x86-64, so every system gets the same depth. `.cargo/config.toml` gives test threads the same stack through `RUST_MIN_STACK`.
+
 ## How to test
 
 `cargo test -p calc-cli`

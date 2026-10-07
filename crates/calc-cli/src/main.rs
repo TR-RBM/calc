@@ -26,7 +26,18 @@ use crate::run::{Context, run};
 
 const POSIX_LOCALE_VARIABLES: [&str; 3] = ["LC_ALL", "LC_MESSAGES", "LANG"];
 
+const ANSWER_STACK_BYTES: usize = 64 * 1024 * 1024;
+const PANIC_EXIT: u8 = 101;
+
 fn main() -> ExitCode {
+    let answered = std::thread::Builder::new()
+        .stack_size(ANSWER_STACK_BYTES)
+        .spawn(answer)
+        .map(|worker| worker.join().unwrap_or(PANIC_EXIT));
+    ExitCode::from(answered.unwrap_or_else(|_| answer()))
+}
+
+fn answer() -> u8 {
     let arguments: Vec<OsString> = std::env::args_os().skip(1).collect();
     let posix_locale_values = POSIX_LOCALE_VARIABLES
         .iter()
@@ -58,11 +69,10 @@ fn main() -> ExitCode {
         check_output: &check_output,
         clock: &clock,
     };
-    let code = run(
+    run(
         &arguments,
         &context,
         &mut io::stdout().lock(),
         &mut io::stderr().lock(),
-    );
-    ExitCode::from(code)
+    )
 }
