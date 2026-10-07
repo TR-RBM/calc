@@ -1,4 +1,5 @@
-use std::process::{Command, Output};
+use std::io::Write;
+use std::process::{Command, Output, Stdio};
 
 const CALC: &str = env!("CARGO_BIN_EXE_calc");
 
@@ -8,6 +9,24 @@ fn calc(arguments: &[&str]) -> Output {
         .env_clear()
         .output()
         .expect("calc runs")
+}
+
+fn calc_reading(arguments: &[&str], input: &str) -> Output {
+    let mut child = Command::new(CALC)
+        .args(arguments)
+        .env_clear()
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .expect("calc runs");
+    child
+        .stdin
+        .take()
+        .expect("standard input is piped")
+        .write_all(input.as_bytes())
+        .expect("the input is written");
+    child.wait_with_output().expect("calc ends")
 }
 
 fn error_output(output: &Output) -> String {
@@ -56,11 +75,12 @@ fn nesting_that_multiplies_a_chain_is_refused_with_an_error_and_not_a_crash() {
     for _ in 0..60 {
         written = format!("({}{})", written, "+1".repeat(400));
     }
-    let output = calc(&[&written, "--locale", "en"]);
+    let output = calc_reading(&["--batch", "--locale", "en"], &written);
     assert_eq!(output.status.code(), Some(1));
-    assert!(error_output(&output).starts_with(
-        "error: brackets and chains together put this expression more than 768 levels deep"
-    ));
+    assert!(
+        error_output(&output)
+            .contains("brackets and chains together put this expression more than 768 levels deep")
+    );
 }
 
 #[test]

@@ -42,6 +42,7 @@ pub struct WgpuDeviceOptions {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum DeviceCreationError {
     NoAdapter { message: String },
+    NoVulkanBackend,
     CpuAdapterRefused { adapter: String },
     DeviceRequest { message: String },
 }
@@ -141,6 +142,9 @@ fn scope_error(error: Option<wgpu::Error>) -> Result<(), DeviceError> {
 
 impl WgpuDevice {
     pub fn new(options: WgpuDeviceOptions) -> Result<WgpuDevice, DeviceCreationError> {
+        if !wgpu::Instance::enabled_backend_features().contains(wgpu::Backends::VULKAN) {
+            return Err(DeviceCreationError::NoVulkanBackend);
+        }
         let mut descriptor = wgpu::InstanceDescriptor::new_without_display_handle();
         descriptor.backends = wgpu::Backends::VULKAN;
         let instance = wgpu::Instance::new(descriptor);
@@ -476,6 +480,7 @@ mod tests {
             Err(DeviceCreationError::NoAdapter { message })
             | Err(DeviceCreationError::DeviceRequest { message }) => !message.is_empty(),
             Err(DeviceCreationError::CpuAdapterRefused { adapter }) => !adapter.is_empty(),
+            Err(DeviceCreationError::NoVulkanBackend) => true,
         };
         assert!(acceptable, "{device:?}");
     }

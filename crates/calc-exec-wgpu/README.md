@@ -5,6 +5,7 @@
 The backend for a hardware GPU device over `wgpu`. Nothing here is registered in a shipped build.
 
 - `WgpuDevice::new(options)` asks `wgpu` for a Vulkan adapter with high performance preference, refuses a CPU adapter unless `WgpuDeviceOptions::allow_cpu_adapter` is set, and requests a device with no extra features and default limits. It returns `DeviceCreationError` naming why it failed. `description()` gives the adapter name, backend, driver and whether it is a CPU adapter, for the record's backend members.
+- On a target where `wgpu` has no Vulkan backend, macOS among them, `WgpuDevice::new` answers `DeviceCreationError::NoVulkanBackend` without creating an instance, so a session there runs without a GPU instead of stopping.
 - `WgpuDevice` implements `GpuDevice` of `calc-exec-gpu`. Buffers are storage buffers of little-endian `f32` or `u32` entries. `compile` emits the map and reduce WGSL of the kernel and builds one compute pipeline each. `dispatch` binds the pass's three buffers and a uniform with the element count and invocations, and dispatches workgroups of 64 over one or two dimensions. `read_buffer` copies into a staging buffer and maps it. Every `wgpu` call runs inside error scopes, so an out of memory, validation or internal error becomes a `DeviceError` instead of a panic.
 - `block_on` waits on `wgpu`'s futures with the standard library's `Waker` and a park of the calling thread. The crate starts no thread and keeps `unsafe_code` at deny.
 - `validate_shader(text)` validates WGSL with `wgpu::naga`, without an adapter.
