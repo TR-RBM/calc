@@ -34,10 +34,12 @@ jobs:
           echo "tag $tag, crates/calc-cli $crate"
           test "$tag" = "$crate"
 
+      # The version the workspace declares, so the gate here is the gate everywhere.
       - name: Install the Rust toolchain
         run: |
-          rustup update stable
-          rustup default stable
+          version="$(sed -n 's/^rust-version = "\(.*\)"$/\1/p' Cargo.toml)"
+          rustup toolchain install "$version" --profile minimal
+          rustup default "$version"
 
       # Linked statically, so the same binary runs on every distribution.
       - name: Build

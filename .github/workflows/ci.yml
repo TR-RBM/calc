@@ -18,11 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The version the workspace declares, so the gate here is the gate everywhere.
       - name: Install the Rust toolchain
         run: |
-          rustup update stable
-          rustup default stable
-          rustup component add rustfmt clippy
+          version="$(sed -n 's/^rust-version = "\(.*\)"$/\1/p' Cargo.toml)"
+          rustup toolchain install "$version" --profile minimal --component rustfmt,clippy
+          rustup default "$version"
 
       # A software Vulkan device, so the GPU backend's tests have an adapter.
       - name: Install a software Vulkan device

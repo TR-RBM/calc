@@ -7,7 +7,7 @@
 [![Rust 1.98+](https://img.shields.io/badge/rust-1.98%2B-orange)](Cargo.toml)
 
 A mathematics tool made to be used by a language model, for working on
-mathematics — including mathematics that is new.
+mathematics.
 
 ## Working something out
 
