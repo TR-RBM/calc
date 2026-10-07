@@ -44,6 +44,7 @@ use calc_exec::SharedParallelism;
 use std::sync::Arc;
 
 use calc_exec_cpu::CpuBackend;
+#[cfg(target_arch = "x86_64")]
 use calc_exec_simd::SimdBackend;
 use calc_exec_wgpu::{WgpuDevice, WgpuDeviceOptions};
 
@@ -196,10 +197,20 @@ pub use working_rules::{RenderedRule, WorkingCondition, WorkingRule, rendered_ru
 
 pub fn registered_backends() -> Vec<Box<dyn Backend>> {
     let parallelism = SharedParallelism::new(ScopedThreadParallelism::available());
-    vec![
-        Box::new(CpuBackend::with_parallelism(parallelism)),
-        Box::new(SimdBackend::new()),
-    ]
+    let mut backends: Vec<Box<dyn Backend>> =
+        vec![Box::new(CpuBackend::with_parallelism(parallelism))];
+    backends.extend(simd_backends());
+    backends
+}
+
+#[cfg(target_arch = "x86_64")]
+fn simd_backends() -> Vec<Box<dyn Backend>> {
+    vec![Box::new(SimdBackend::new())]
+}
+
+#[cfg(not(target_arch = "x86_64"))]
+fn simd_backends() -> Vec<Box<dyn Backend>> {
+    Vec::new()
 }
 
 pub fn probed_gpu_registration() -> GpuRegistration {

@@ -1,10 +1,14 @@
-# Builds the release files when a version tag is pushed:
+# Builds, tests and packages calc for every supported system when a version
+# tag is pushed, and publishes the release:
 #   git tag -a v0.1.0 -m "calc 0.1.0" && git push origin v0.1.0
 #
-# The version of crates/calc-cli has to match the tag.
+# The version of crates/calc-cli and of packaging/arch/PKGBUILD has to match
+# the tag.
 #
-# Started by hand (Actions > release > Run workflow) it builds everything
-# but publishes nothing; the files are kept as run artifacts.
+# Started by hand (Actions > release > Run workflow) it builds and tests
+# everything but publishes nothing; the files are kept as run artifacts. The
+# Arch package is only built for a tag, because its PKGBUILD downloads the
+# source of that tag.
 
 name: release
 
@@ -21,50 +25,209 @@ env:
 
 jobs:
   linux:
-    name: linux x86_64
-    runs-on: ubuntu-24.04
+    name: linux ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    env:
+      TARGET: ${{ matrix.arch }}-unknown-linux-gnu
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check that the version matches the tag
+      - name: Check that the versions match the tag
         if: github.ref_type == 'tag'
         run: |
           tag="${GITHUB_REF_NAME#v}"
           crate="$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -n 1)"
-          echo "tag $tag, crates/calc-cli $crate"
-          test "$tag" = "$crate"
+          arch="$(sed -n 's/^pkgver=//p' packaging/arch/PKGBUILD)"
+          echo "tag $tag, crates/calc-cli $crate, PKGBUILD $arch"
+          test "$tag" = "$crate" && test "$tag" = "$arch"
 
-      # The version the workspace declares, so the gate here is the gate everywhere.
       - name: Install the Rust toolchain
         run: |
           version="$(sed -n 's/^rust-version = "\(.*\)"$/\1/p' Cargo.toml)"
           rustup toolchain install "$version" --profile minimal
           rustup default "$version"
 
+      - name: Install a software Vulkan device
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends mesa-vulkan-drivers
+
+      - name: Test
+        run: cargo test --workspace --locked
+
       # Linked statically, so the same binary runs on every distribution.
       - name: Build
-        run: CALC_RELEASE_DIR="$PWD/build" tools/release
+        run: CALC_TARGET_TRIPLE="$TARGET" CALC_RELEASE_DIR="$PWD/build" tools/release
 
       - name: Package
         run: |
           version="$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -n 1)"
-          name="calc-v$version-x86_64-linux"
-          mkdir "$name" dist
+          name="calc-v$version-${{ matrix.arch }}-linux"
+          mkdir -p "$name/completion" dist
           cp build/calc-* "$name/calc"
-          cp README.md LICENSE LICENSE-CONTENT "$name/"
-          "$name/calc" --version
+          cp crates/calc-cli/completion/calc.bash crates/calc-cli/completion/calc.fish "$name/completion/"
+          cp packaging/install.sh README.md LICENSE LICENSE-CONTENT "$name/"
           tar czf "dist/$name.tar.gz" "$name"
+          cargo +stable install --locked cargo-deb cargo-generate-rpm
+          cargo deb -p calc-cli --no-build --no-strip --target "$TARGET" --output dist/
+          cargo generate-rpm -p crates/calc-cli --target "$TARGET" -o dist/
+
+      - name: Test the install script
+        run: |
+          name="$(basename dist/calc-v*-linux.tar.gz .tar.gz)"
+          tar xzf "dist/$name.tar.gz" -C "$RUNNER_TEMP"
+          sudo "$RUNNER_TEMP/$name/install.sh"
+          test "$(/usr/local/bin/calc '1/3 + 1/6' --terse)" = "1/2 exact"
+          test -f /usr/local/share/bash-completion/completions/calc
+          sudo "$RUNNER_TEMP/$name/install.sh" uninstall
+          test ! -e /usr/local/bin/calc
+
+      - name: Test the Debian package
+        run: |
+          sudo apt-get install -y ./dist/*.deb
+          test "$(/usr/bin/calc '1/3 + 1/6' --terse)" = "1/2 exact"
+          sudo apt-get remove -y calc-exact
+          test ! -e /usr/bin/calc
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-x86_64
+          name: linux-${{ matrix.arch }}
+          path: dist/*
+          if-no-files-found: error
+
+  macos:
+    name: macos aarch64
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the Rust toolchain
+        run: |
+          version="$(sed -n 's/^rust-version = "\(.*\)"$/\1/p' Cargo.toml)"
+          rustup toolchain install "$version" --profile minimal
+          rustup default "$version"
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+      - name: Build
+        run: cargo build --release --locked -p calc-cli
+
+      - name: Package
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -n 1)"
+          name="calc-v$version-aarch64-macos"
+          mkdir -p "$name/completion" dist
+          cp target/release/calc "$name/calc"
+          cp crates/calc-cli/completion/calc.bash crates/calc-cli/completion/calc.fish "$name/completion/"
+          cp packaging/install.sh README.md LICENSE LICENSE-CONTENT "$name/"
+          tar czf "dist/$name.tar.gz" "$name"
+
+      - name: Test the install script
+        run: |
+          name="$(basename dist/calc-v*-macos.tar.gz .tar.gz)"
+          tar xzf "dist/$name.tar.gz" -C "$RUNNER_TEMP"
+          sudo "$RUNNER_TEMP/$name/install.sh"
+          test "$(/usr/local/bin/calc '1/3 + 1/6' --terse)" = "1/2 exact"
+          sudo "$RUNNER_TEMP/$name/install.sh" uninstall
+          test ! -e /usr/local/bin/calc
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-aarch64
+          path: dist/*
+          if-no-files-found: error
+
+  windows:
+    name: windows x86_64
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the Rust toolchain
+        shell: bash
+        run: |
+          version="$(sed -n 's/^rust-version = "\(.*\)"$/\1/p' Cargo.toml)"
+          rustup toolchain install "$version" --profile minimal
+          rustup default "$version"
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+      # No dependency on the Visual C++ runtime being installed.
+      - name: Build
+        env:
+          RUSTFLAGS: -C target-feature=+crt-static
+        run: cargo build --release --locked -p calc-cli
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path crates/calc-cli/Cargo.toml -Pattern '^version = "(.*)"' | Select-Object -First 1).Matches.Groups[1].Value
+          $name = "calc-v$version-x86_64-windows"
+          New-Item -ItemType Directory -Path $name, dist | Out-Null
+          Copy-Item target/release/calc.exe, packaging/install.ps1, README.md, LICENSE, LICENSE-CONTENT -Destination $name
+          Compress-Archive -Path $name -DestinationPath "dist/$name.zip"
+
+      - name: Test the install script
+        shell: pwsh
+        run: |
+          $zip = (Get-Item dist/*.zip).FullName
+          Expand-Archive -Path $zip -DestinationPath $env:RUNNER_TEMP
+          $folder = Join-Path $env:RUNNER_TEMP ([IO.Path]::GetFileNameWithoutExtension($zip))
+          & (Join-Path $folder 'install.ps1')
+          $exe = "$env:LOCALAPPDATA\Programs\calc\calc.exe"
+          $answer = & $exe '1/3 + 1/6' --terse
+          if ($answer -ne '1/2 exact') { throw "the installed program answered: $answer" }
+          $path = [Environment]::GetEnvironmentVariable('Path', 'User')
+          if ($path -notlike '*\Programs\calc*') { throw "not on the user PATH: $path" }
+          & (Join-Path $folder 'install.ps1') -Uninstall
+          if (Test-Path $exe) { throw "the program is still there after the uninstall" }
+          $path = [Environment]::GetEnvironmentVariable('Path', 'User')
+          if ($path -like '*\Programs\calc*') { throw "still on the user PATH: $path" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-x86_64
+          path: dist/*
+          if-no-files-found: error
+
+  arch:
+    name: arch package
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+
+      # makepkg refuses to run as root.
+      - name: Build the package
+        run: |
+          pacman -Syu --noconfirm --needed rust
+          useradd --create-home builder
+          cp -r packaging/arch /home/builder/pkg
+          chown -R builder /home/builder/pkg
+          su builder -c "cd /home/builder/pkg && makepkg --noconfirm"
+          mkdir dist
+          cp /home/builder/pkg/*.pkg.tar.zst dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arch
           path: dist/*
           if-no-files-found: error
 
   publish:
     name: publish release
     if: github.ref_type == 'tag'
-    needs: [linux]
+    needs: [linux, macos, windows, arch]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/download-artifact@v4

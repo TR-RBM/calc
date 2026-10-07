@@ -13,7 +13,6 @@ calc-core = { path = "../calc-core" }
 calc-exec = { path = "../calc-exec" }
 calc-exec-cpu = { path = "../calc-exec-cpu" }
 calc-exec-gpu = { path = "../calc-exec-gpu" }
-calc-exec-simd = { path = "../calc-exec-simd" }
 calc-exec-wgpu = { path = "../calc-exec-wgpu" }
 calc-conformance = { path = "../calc-conformance" }
 calc-i18n = { path = "../calc-i18n" }
@@ -23,6 +22,9 @@ calc-sort = { path = "../calc-sort" }
 calc-syntax = { path = "../calc-syntax" }
 calc-units = { path = "../calc-units" }
 calc-viz = { path = "../calc-viz" }
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+calc-exec-simd = { path = "../calc-exec-simd" }
 
 [lints]
 workspace = true

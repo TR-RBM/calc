@@ -20,7 +20,7 @@ A language model always produces an answer, which is why it cannot be the thing 
 - **Units and uncertainty carried.** A unit is computed with the value and checked, and a measured value carries its uncertainty through the calculation.
 - **Built for programs.** JSON with identifiers a program branches on, refusals that are typed, and an exit status that is the verdict.
 
-calc is built and tested on x86-64 Linux. It is not a computer algebra system; what it does not do yet is listed [below](#what-it-does-not-do-yet).
+calc is built and tested on Linux (x86-64 and ARM64), macOS (Apple silicon) and Windows (x86-64). It is not a computer algebra system; what it does not do yet is listed [below](#what-it-does-not-do-yet).
 
 ## A short example
 
@@ -227,13 +227,27 @@ None of these makes an answer wrong; each is a claim calc leaves open.
 
 ## Installation
 
-calc builds with stable Rust 1.98 or later into one binary with no runtime dependencies:
+Every [release](https://github.com/TR-RBM/calc/releases/latest) carries these files, and `SHA256SUMS` beside them:
+
+| System | File | Install |
+|---|---|---|
+| Debian, Ubuntu | `calc-exact_<version>-1_<arch>.deb` | `sudo apt install ./calc-exact_*.deb` |
+| Fedora, RHEL | `calc-exact-<version>-1.<arch>.rpm` | `sudo dnf install ./calc-exact-*.rpm` |
+| Arch Linux, Artix | `calc-exact-<version>-1-<arch>.pkg.tar.zst` | `sudo pacman -U calc-exact-*.pkg.tar.zst` |
+| Any Linux, x86-64 or ARM64 | `calc-v<version>-<arch>-linux.tar.gz` | unpack, then `sudo ./install.sh` |
+| macOS, Apple silicon | `calc-v<version>-aarch64-macos.tar.gz` | unpack, then `sudo ./install.sh` |
+| Windows, x86-64 | `calc-v<version>-x86_64-windows.zip` | unpack, then `powershell -ExecutionPolicy Bypass -File install.ps1` |
+
+The packages are named `calc-exact` because Debian, Fedora and Arch already carry another program as `calc`; the command is `calc` either way, and the packages conflict with that program. The Linux binaries are linked statically and run on any distribution. `install.sh` puts the binary, the bash and fish completions and the licences under `/usr/local`, or under `PREFIX`; `install.sh uninstall` removes them. `install.ps1` installs into your user's programs folder and puts it on your path; `install.ps1 -Uninstall` removes it. The macOS binary is not signed: if macOS refuses to open it, allow it under System Settings, Privacy & Security, or remove the download mark with `xattr -d com.apple.quarantine calc` before installing.
+
+From source, with stable Rust 1.98 or later:
 
 ```sh
-cargo build --release -p calc-cli
+make build
+sudo make install          # PREFIX=/usr/local by default
 ```
 
-The binary is `target/release/calc`. `tools/release` builds a statically linked one that runs on any x86-64 Linux; the release workflow does the same for a version tag. `calc --version` names the version, the commit it was built from, whether that tree had uncommitted changes, and the target.
+`make uninstall` removes it again. `calc --version` names the version, the commit it was built from, whether that tree had uncommitted changes, and the target.
 
 ## Documentation
 

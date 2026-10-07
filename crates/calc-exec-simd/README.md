@@ -2,7 +2,7 @@
 
 ## What it does
 
-The SIMD backend of the execution layer, for x86_64. It compiles a plan once into a program of steps, then evaluates that program over lanes: four `f32` or two `f64` on the SSE2 baseline, eight or four under AVX2, chosen by run-time detection in `InstructionSet::detected`.
+The SIMD backend of the execution layer, for x86_64. It compiles a plan once into a program of steps, then evaluates that program over lanes: four `f32` or two `f64` on the SSE2 baseline, eight or four under AVX2, chosen by run-time detection in `InstructionSet::detected`. On any other architecture the crate is empty and `calc-app` registers the CPU backend alone, which gives the same results.
 
 Every result is the same bits as `calc-exec-cpu` produces. The arithmetic instructions are correctly rounded, so they match on their own; `minimum`, `maximum` and the comparisons are built from compares and blends because the hardware's own minimum and maximum disagree with IEEE on NaN and on the sign of zero; rounding to an integer, the fused multiply-add and the approximate operations run per lane through the same `calc-numbers` functions the CPU backend calls, so they cannot drift from it. Reductions follow the shape of the plan rather than the width of a register: `LeftFold` stays sequential and `Halving` builds the recursive split.
 

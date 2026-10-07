@@ -4,6 +4,9 @@ version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+description = "A calculator for the command line that keeps every result exact as long as the mathematics allows"
+homepage = "https://github.com/TR-RBM/calc"
+repository = "https://github.com/TR-RBM/calc"
 publish = false
 
 [[bin]]
@@ -17,3 +20,41 @@ calc-render = { path = "../calc-render" }
 
 [lints]
 workspace = true
+
+[package.metadata.deb]
+name = "calc-exact"
+maintainer = "TR-RBM <47713618+TR-RBM@users.noreply.github.com>"
+copyright = "the calc authors"
+section = "math"
+priority = "optional"
+depends = "$auto"
+conflicts = "apcalc"
+extended-description = """\
+calc keeps every result exact as long as the mathematics allows, bounds what \
+is not exact with proven intervals, carries units and uncertainties, and \
+answers claims with a verdict: holds, fails, or undecided. It answers as text \
+for a person and as JSON for a program."""
+license-file = ["../../LICENSE", "0"]
+assets = [
+    ["target/release/calc", "usr/bin/", "755"],
+    ["completion/calc.bash", "usr/share/bash-completion/completions/calc", "644"],
+    ["completion/calc.fish", "usr/share/fish/vendor_completions.d/calc.fish", "644"],
+    ["../../README.md", "usr/share/doc/calc-exact/README.md", "644"],
+    ["../../LICENSE-CONTENT", "usr/share/doc/calc-exact/LICENSE-CONTENT", "644"],
+]
+
+[package.metadata.generate-rpm]
+name = "calc-exact"
+license = "Apache-2.0 AND CC-BY-SA-4.0"
+summary = "A calculator that keeps every result exact as long as the mathematics allows"
+assets = [
+    { source = "target/release/calc", dest = "/usr/bin/calc", mode = "755" },
+    { source = "completion/calc.bash", dest = "/usr/share/bash-completion/completions/calc", mode = "644" },
+    { source = "completion/calc.fish", dest = "/usr/share/fish/vendor_completions.d/calc.fish", mode = "644" },
+    { source = "../../README.md", dest = "/usr/share/doc/calc-exact/README.md", mode = "644", doc = true },
+    { source = "../../LICENSE", dest = "/usr/share/licenses/calc-exact/LICENSE", mode = "644" },
+    { source = "../../LICENSE-CONTENT", dest = "/usr/share/licenses/calc-exact/LICENSE-CONTENT", mode = "644" },
+]
+
+[package.metadata.generate-rpm.conflicts]
+calc = "*"
