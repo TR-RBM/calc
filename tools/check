@@ -1,0 +1,138 @@
+#!/bin/sh
+set -eu
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd)
+cd "$ROOT"
+
+SCRATCH="$ROOT/target/check-logs"
+mkdir -p "$SCRATCH"
+
+STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+STATUS=0
+LOGS=""
+
+CHECKS_HEADING="## Checks"
+
+CHECKS_SECTION=$(awk -v heading="$CHECKS_HEADING" '
+    $0 == heading { inside = 1; next }
+    inside && /^## / { exit }
+    inside { print }
+' "$ROOT/README.md")
+
+[ -n "$CHECKS_SECTION" ] || {
+    echo "tools/check: README.md has no \"$CHECKS_HEADING\" section, which is where the cargo lines are read from" >&2
+    exit 2
+}
+
+readme_command() {
+    printf '%s\n' "$CHECKS_SECTION" | sed -n "s/^    \\($1 .*\\)\$/\\1/p" | head -n 1
+}
+
+CLIPPY_EXPECTED="--workspace
+--all-targets
+-D warnings"
+TEST_EXPECTED="--workspace"
+WEAKENING="-A
+--allow
+--no-deps
+--no-run
+--no-fail-fast"
+
+missing_from() {
+    line=$1
+    printf '%s\n' "$2" | while IFS= read -r part; do
+        [ -n "$part" ] || continue
+        case " $line " in
+            *" $part "*) ;;
+            *) printf '%s, ' "$part" ;;
+        esac
+    done
+}
+
+weakening_in() {
+    line=$1
+    printf '%s\n' "$WEAKENING" | while IFS= read -r part; do
+        [ -n "$part" ] || continue
+        case " $line " in
+            *" $part "*) printf '%s, ' "$part" ;;
+            *" $part="*) printf '%s, ' "$part" ;;
+        esac
+    done
+}
+
+read_command() {
+    name=$1
+    expected=$2
+    line=$(readme_command "$name")
+    [ -n "$line" ] || {
+        echo "tools/check: no indented \"$name\" line under \"$CHECKS_HEADING\" in README.md" >&2
+        exit 2
+    }
+    lacks=$(missing_from "$line" "$expected")
+    [ -z "$lacks" ] || {
+        echo "tools/check: the \"$name\" line under \"$CHECKS_HEADING\" lacks ${lacks%, }: $line" >&2
+        exit 2
+    }
+    weakens=$(weakening_in "$line")
+    [ -z "$weakens" ] || {
+        echo "tools/check: the \"$name\" line under \"$CHECKS_HEADING\" carries ${weakens%, }, which checks less: $line" >&2
+        exit 2
+    }
+    printf '%s\n' "$line"
+}
+
+CLIPPY_COMMAND=$(read_command "cargo clippy" "$CLIPPY_EXPECTED") || exit 2
+TEST_COMMAND=$(read_command "cargo test" "$TEST_EXPECTED") || exit 2
+
+run_check() {
+    name=$1
+    shift
+    log="$SCRATCH/check-$STAMP-$name.log"
+    if "$@" >"$log" 2>&1; then
+        printf '%s: ok\n' "$name"
+    else
+        printf '%s: FAILED\n' "$name"
+        STATUS=1
+    fi
+    LOGS="$LOGS $log"
+}
+
+run_check fmt cargo fmt --all --check
+
+if [ "$STATUS" -eq 0 ]; then
+    run_check clippy sh -c "$CLIPPY_COMMAND"
+else
+    printf 'clippy: not run\n'
+fi
+
+if [ "$STATUS" -eq 0 ]; then
+    run_check test sh -c "$TEST_COMMAND"
+else
+    printf 'test: not run\n'
+fi
+
+if [ -d "$ROOT/tools/docref" ]; then
+    if [ "$STATUS" -eq 0 ]; then
+        docref_bin="$ROOT/target/release/docref"
+        run_check docref-build cargo build --release --quiet \
+            --manifest-path "$ROOT/tools/docref/Cargo.toml" --target-dir "$ROOT/target"
+        if [ "$STATUS" -eq 0 ]; then
+            run_check docref "$docref_bin" --check
+        else
+            printf 'docref: not run\n'
+        fi
+    else
+        printf 'docref: not run\n'
+    fi
+fi
+
+if [ -x "$ROOT/tools/export" ]; then
+    if [ "$STATUS" -eq 0 ]; then
+        run_check export "$ROOT/tools/export" --check --quick
+    else
+        printf 'export: not run\n'
+    fi
+fi
+
+printf 'logs:%s\n' "$LOGS"
+exit "$STATUS"

@@ -1,0 +1,32 @@
+00000000004018a0 <array_max>:
+  4018a0:	mov    eax,DWORD PTR [rdi]
+  4018a2:	cmp    esi,0x1
+  4018a5:	jle    4018f8 <array_max+0x58>
+  4018a7:	lea    ecx,[rsi-0x2]
+  4018aa:	lea    rdx,[rdi+0x4]
+  4018ae:	lea    rsi,[rdi+rcx*4+0x8]
+  4018b3:	mov    rcx,rsi
+  4018b6:	sub    rcx,rdx
+  4018b9:	and    ecx,0x4
+  4018bc:	je     4018e0 <array_max+0x40>
+  4018be:	mov    edx,DWORD PTR [rdx]
+  4018c0:	cmp    eax,edx
+  4018c2:	cmovl  eax,edx
+  4018c5:	lea    rdx,[rdi+0x8]
+  4018c9:	cmp    rdx,rsi
+  4018cc:	je     4018f9 <array_max+0x59>
+  4018ce:	nop    DWORD PTR [rax+0x0]
+  4018d5:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  4018e0:	mov    ecx,DWORD PTR [rdx]
+  4018e2:	cmp    eax,ecx
+  4018e4:	cmovl  eax,ecx
+  4018e7:	mov    ecx,DWORD PTR [rdx+0x4]
+  4018ea:	cmp    eax,ecx
+  4018ec:	cmovl  eax,ecx
+  4018ef:	add    rdx,0x8
+  4018f3:	cmp    rdx,rsi
+  4018f6:	jne    4018e0 <array_max+0x40>
+  4018f8:	ret
+  4018f9:	ret
+  4018fa:	nop    WORD PTR [rax+rax*1+0x0]
+

@@ -1,0 +1,41 @@
+0000000000401b96 <grade>:
+  401b96:	push   rbp
+  401b97:	mov    rbp,rsp
+  401b9a:	mov    DWORD PTR [rbp-0x4],edi
+  401b9d:	cmp    DWORD PTR [rbp-0x4],0x5
+  401ba1:	je     401bfe <grade+0x68>
+  401ba3:	cmp    DWORD PTR [rbp-0x4],0x5
+  401ba7:	jg     401c05 <grade+0x6f>
+  401ba9:	cmp    DWORD PTR [rbp-0x4],0x4
+  401bad:	je     401bf7 <grade+0x61>
+  401baf:	cmp    DWORD PTR [rbp-0x4],0x4
+  401bb3:	jg     401c05 <grade+0x6f>
+  401bb5:	cmp    DWORD PTR [rbp-0x4],0x3
+  401bb9:	je     401bf0 <grade+0x5a>
+  401bbb:	cmp    DWORD PTR [rbp-0x4],0x3
+  401bbf:	jg     401c05 <grade+0x6f>
+  401bc1:	cmp    DWORD PTR [rbp-0x4],0x2
+  401bc5:	je     401be9 <grade+0x53>
+  401bc7:	cmp    DWORD PTR [rbp-0x4],0x2
+  401bcb:	jg     401c05 <grade+0x6f>
+  401bcd:	cmp    DWORD PTR [rbp-0x4],0x0
+  401bd1:	je     401bdb <grade+0x45>
+  401bd3:	cmp    DWORD PTR [rbp-0x4],0x1
+  401bd7:	je     401be2 <grade+0x4c>
+  401bd9:	jmp    401c05 <grade+0x6f>
+  401bdb:	mov    eax,0x5
+  401be0:	jmp    401c0a <grade+0x74>
+  401be2:	mov    eax,0x7
+  401be7:	jmp    401c0a <grade+0x74>
+  401be9:	mov    eax,0xb
+  401bee:	jmp    401c0a <grade+0x74>
+  401bf0:	mov    eax,0xd
+  401bf5:	jmp    401c0a <grade+0x74>
+  401bf7:	mov    eax,0x11
+  401bfc:	jmp    401c0a <grade+0x74>
+  401bfe:	mov    eax,0x13
+  401c03:	jmp    401c0a <grade+0x74>
+  401c05:	mov    eax,0xffffffff
+  401c0a:	pop    rbp
+  401c0b:	ret
+

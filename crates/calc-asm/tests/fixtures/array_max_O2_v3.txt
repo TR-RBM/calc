@@ -1,0 +1,73 @@
+0000000000401a60 <array_max>:
+  401a60:	vmovd  xmm0,DWORD PTR [rdi]
+  401a64:	vmovd  eax,xmm0
+  401a68:	cmp    esi,0x1
+  401a6b:	jle    401b6b <array_max+0x10b>
+  401a71:	lea    edx,[rsi-0x2]
+  401a74:	cmp    edx,0x6
+  401a77:	jbe    401b71 <array_max+0x111>
+  401a7d:	lea    r8d,[rsi-0x1]
+  401a81:	vmovd  xmm1,eax
+  401a85:	mov    rax,rdi
+  401a88:	mov    edx,r8d
+  401a8b:	vpbroadcastd ymm1,xmm1
+  401a90:	shr    edx,0x3
+  401a93:	mov    ecx,edx
+  401a95:	shl    rcx,0x5
+  401a99:	add    rcx,rdi
+  401a9c:	nop    DWORD PTR [rax+0x0]
+  401aa0:	vpmaxsd ymm1,ymm1,YMMWORD PTR [rax+0x4]
+  401aa6:	add    rax,0x20
+  401aaa:	cmp    rax,rcx
+  401aad:	jne    401aa0 <array_max+0x40>
+  401aaf:	vextracti128 xmm0,ymm1,0x1
+  401ab5:	shl    edx,0x3
+  401ab8:	vpmaxsd xmm0,xmm0,xmm1
+  401abd:	vpsrldq xmm1,xmm0,0x8
+  401ac2:	vpmaxsd xmm0,xmm0,xmm1
+  401ac7:	vpsrldq xmm1,xmm0,0x4
+  401acc:	vpmaxsd xmm0,xmm0,xmm1
+  401ad1:	vmovd  eax,xmm0
+  401ad5:	cmp    r8d,edx
+  401ad8:	je     401b68 <array_max+0x108>
+  401ade:	add    edx,0x1
+  401ae1:	vzeroupper
+  401ae4:	mov    rax,rdx
+  401ae7:	vmovd  xmm1,DWORD PTR [rdi+rdx*4]
+  401aec:	add    rdx,0x1
+  401af0:	vpmaxsd xmm0,xmm0,xmm1
+  401af5:	not    rax
+  401af8:	lea    ecx,[rsi+rax*1]
+  401afb:	vmovd  eax,xmm0
+  401aff:	cmp    esi,edx
+  401b01:	jle    401b70 <array_max+0x110>
+  401b03:	and    ecx,0x1
+  401b06:	je     401b40 <array_max+0xe0>
+  401b08:	vmovd  xmm1,DWORD PTR [rdi+rdx*4]
+  401b0d:	add    rdx,0x1
+  401b11:	vpmaxsd xmm0,xmm0,xmm1
+  401b16:	vmovd  eax,xmm0
+  401b1a:	cmp    esi,edx
+  401b1c:	jle    401b7b <array_max+0x11b>
+  401b1e:	nop
+  401b1f:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401b2a:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401b35:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401b40:	vmovd  xmm1,DWORD PTR [rdi+rdx*4]
+  401b45:	vpmaxsd xmm0,xmm0,xmm1
+  401b4a:	vmovd  xmm1,DWORD PTR [rdi+rdx*4+0x4]
+  401b50:	add    rdx,0x2
+  401b54:	vpmaxsd xmm0,xmm0,xmm1
+  401b59:	vmovd  eax,xmm0
+  401b5d:	cmp    esi,edx
+  401b5f:	jg     401b40 <array_max+0xe0>
+  401b61:	ret
+  401b62:	nop    WORD PTR [rax+rax*1+0x0]
+  401b68:	vzeroupper
+  401b6b:	ret
+  401b6c:	nop    DWORD PTR [rax+0x0]
+  401b70:	ret
+  401b71:	mov    edx,0x1
+  401b76:	jmp    401ae4 <array_max+0x84>
+  401b7b:	ret
+  401b7c:	nop    DWORD PTR [rax+0x0]

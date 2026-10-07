@@ -1,0 +1,33 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/calc-numbers",
+    "crates/calc-units",
+    "crates/calc-expr",
+    "crates/calc-core",
+    "crates/calc-syntax",
+    "crates/calc-exec",
+    "crates/calc-exec-cpu",
+    "crates/calc-exec-simd",
+    "crates/calc-exec-gpu",
+    "crates/calc-exec-wgpu",
+    "crates/calc-conformance",
+    "crates/calc-concepts",
+    "crates/calc-viz",
+    "crates/calc-render",
+    "crates/calc-i18n",
+    "crates/calc-i18n-build",
+    "crates/calc-app",
+    "crates/calc-asm",
+    "crates/calc-sort",
+    "crates/calc-kernels",
+    "crates/calc-cli",
+]
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.98"
+license = "Apache-2.0"
+
+[workspace.lints.rust]
+unsafe_code = "deny"

@@ -1,0 +1,28 @@
+[package]
+name = "calc-app"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-asm = { path = "../calc-asm" }
+calc-concepts = { path = "../calc-concepts" }
+calc-core = { path = "../calc-core" }
+calc-exec = { path = "../calc-exec" }
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+calc-exec-gpu = { path = "../calc-exec-gpu" }
+calc-exec-simd = { path = "../calc-exec-simd" }
+calc-exec-wgpu = { path = "../calc-exec-wgpu" }
+calc-conformance = { path = "../calc-conformance" }
+calc-i18n = { path = "../calc-i18n" }
+calc-expr = { path = "../calc-expr" }
+calc-numbers = { path = "../calc-numbers" }
+calc-sort = { path = "../calc-sort" }
+calc-syntax = { path = "../calc-syntax" }
+calc-units = { path = "../calc-units" }
+calc-viz = { path = "../calc-viz" }
+
+[lints]
+workspace = true

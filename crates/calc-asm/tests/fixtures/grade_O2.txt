@@ -1,0 +1,10 @@
+0000000000401b60 <grade>:
+  401b60:	cmp    edi,0x5
+  401b63:	ja     401b78 <grade+0x18>
+  401b65:	mov    edi,edi
+  401b67:	lea    rax,[rip+0x522]        # 402090 <CSWTCH.19>
+  401b6e:	mov    eax,DWORD PTR [rax+rdi*4]
+  401b71:	ret
+  401b72:	nop    WORD PTR [rax+rax*1+0x0]
+  401b78:	mov    eax,0xffffffff
+  401b7d:	ret

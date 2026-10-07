@@ -1,0 +1,68 @@
+C	1	error C is not defined\n
+S	1	error S is not defined\n
+K	1	error K is not defined\n
+N	1	error N is not defined; the physical constant is written N_A\n
+H	1	error H is not defined\n
+Pa	1	error Pa is not defined\n
+V	1	error V is not defined\n
+W	1	error W is not defined\n
+F	1	error F is not defined\n
+B	1	error B is not defined\n
+P	0	P exact\n
+O	0	O exact\n
+I	0	I exact\n
+U	0	U exact\n
+T	1	error T is not defined\n
+Cs	0	Cs exact\n
+Co	0	Co exact\n
+Cu	0	Cu exact\n
+Pb	0	Pb exact\n
+Sn	0	Sn exact\n
+Hg	0	Hg exact\n
+Au	0	Au exact\n
+Ag	0	Ag exact\n
+Fe	0	Fe exact\n
+Na	0	Na exact\n
+CO	0	CO exact\n
+Nm	0	Nm exact\n
+Hz	1	error Hz is not defined\n
+2 C	0	2 C exact\n
+C2	0	C2 exact\n
+H2	0	H2 exact\n
+H2O	0	H2O exact\n
+CO2	0	CO2 exact\n
+NaCl	0	NaCl exact\n
+NH3	0	NH3 exact\n
+CH4	0	CH4 exact\n
+H2SO4	0	H2SO4 exact\n
+Ca(OH)2	1	error: unexpected 2 at column 7\n
+Fe3+	1	error: the input ends too early at column 5\n
+NH4+	1	error: the input ends too early at column 5\n
+SO4^2-	1	error: the input ends too early at column 7\n
+H2 + O2 -> H2O	1	error: H2O is not a unit at column 12\n
+2 H2 + O2 -> 2 H2O	1	error: unexpected 2 at column 14\n
+C -> K	1	error C is not defined\n
+1 C -> A s	1	error: unexpected s at column 10\n
+1 K -> C	1	error 1 K -> C: K measures temperature (units: degC, degF, K) and C measures electric charge (units: C), so they cannot be added, compared or converted into each other.\n
+1 mol	0	1 mol exact\n
+2 mol	0	2 mol exact\n
+1 M	1	error: M is not a unit at column 3\n
+1 mM	1	error: mM is not a unit at column 3\n
+1 u	1	error: u is the atomic mass unit, whose value in kilograms is measured, and calc's units all have exact factors; write it through the constant m_u, as 12 * m_u, or 2e-26 kg / m_u for a mass in atomic mass units, at column 3\n
+1 Da	1	error: Da is the atomic mass unit, whose value in kilograms is measured, and calc's units all have exact factors; write it through the constant m_u, as 12 * m_u, or 2e-26 kg / m_u for a mass in atomic mass units, at column 3\n
+1 L	0	1 L exact\n
+1 mol/L	0	1 mol/L exact\n
+1 g/mol	0	1 g/mol exact\n
+12 g / (1 mol)	0	12 g/mol exact\n
+N_A	0	6.02214076e23 mol⁻¹ exact\n
+k_B	0	1.380649e-23 J/K exact\n
+R	0	R exact\n
+e	0	e exact\n
+pH	1	error pH is not defined\n
+1 ppm	1	error: ppm is not a unit at column 3\n
+1 mol*N_A	1	error: N_A is not a unit at column 7: a name joined to a unit by * or / without spaces is read as part of the unit; to multiply or divide by N_A, put a space on each side of the * or /\n
+1 mol * N_A	0	6.02214076e23 exact\n
+298.15 K/(1 bar)	0	298.15 K/bar exact\n
+298.15 K / (1 bar)	0	298.15 K/bar exact\n
+1 kg ± 0.1 kg	0	1.00 kg ± 0.10 kg derived from 1 measured input\n
+(1 ± 0.1) kg	0	1.00 kg ± 0.10 kg derived from 1 measured input\n

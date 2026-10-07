@@ -1,0 +1,61 @@
+0000000000401ce0 <sum_step>:
+  401ce0:	test   esi,esi
+  401ce2:	jle    401db0 <sum_step+0xd0>
+  401ce8:	lea    eax,[rsi-0x1]
+  401ceb:	cmp    eax,0x8
+  401cee:	jbe    401db3 <sum_step+0xd3>
+  401cf4:	mov    ecx,eax
+  401cf6:	mov    eax,0xaaaaaaab
+  401cfb:	pxor   xmm2,xmm2
+  401cff:	imul   rcx,rax
+  401d03:	mov    rax,rdi
+  401d06:	shr    rcx,0x21
+  401d0a:	add    ecx,0x1
+  401d0d:	mov    r8d,ecx
+  401d10:	shr    r8d,0x2
+  401d14:	mov    edx,r8d
+  401d17:	lea    rdx,[rdx+rdx*2]
+  401d1b:	shl    rdx,0x4
+  401d1f:	add    rdx,rdi
+  401d22:	nop    DWORD PTR [rax+rax*1+0x0]
+  401d2a:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401d35:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401d40:	movdqu xmm0,XMMWORD PTR [rax]
+  401d44:	movdqu xmm1,XMMWORD PTR [rax+0x10]
+  401d49:	add    rax,0x30
+  401d4d:	movq   xmm3,QWORD PTR [rax-0x10]
+  401d52:	shufps xmm1,xmm3,0x5a
+  401d56:	shufps xmm0,xmm1,0x8c
+  401d5a:	paddd  xmm2,xmm0
+  401d5e:	cmp    rdx,rax
+  401d61:	jne    401d40 <sum_step+0x60>
+  401d63:	movdqa xmm0,xmm2
+  401d67:	lea    edx,[r8*4+0x0]
+  401d6f:	psrldq xmm0,0x8
+  401d74:	paddd  xmm2,xmm0
+  401d78:	movdqa xmm0,xmm2
+  401d7c:	psrldq xmm0,0x4
+  401d81:	paddd  xmm2,xmm0
+  401d85:	movd   eax,xmm2
+  401d89:	cmp    ecx,edx
+  401d8b:	je     401db2 <sum_step+0xd2>
+  401d8d:	lea    edx,[rdx+r8*8]
+  401d91:	mov    ecx,edx
+  401d93:	lea    r8d,[rdx+0x3]
+  401d97:	add    eax,DWORD PTR [rdi+rcx*4]
+  401d9a:	cmp    esi,r8d
+  401d9d:	jle    401db2 <sum_step+0xd2>
+  401d9f:	add    edx,0x6
+  401da2:	add    eax,DWORD PTR [rdi+rcx*4+0xc]
+  401da6:	cmp    esi,edx
+  401da8:	jle    401db2 <sum_step+0xd2>
+  401daa:	add    eax,DWORD PTR [rdi+rcx*4+0x18]
+  401dae:	ret
+  401daf:	nop
+  401db0:	xor    eax,eax
+  401db2:	ret
+  401db3:	xor    edx,edx
+  401db5:	xor    eax,eax
+  401db7:	jmp    401d91 <sum_step+0xb1>
+  401db9:	nop    DWORD PTR [rax+0x0]
+

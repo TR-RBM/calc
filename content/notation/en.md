@@ -1,0 +1,3 @@
+# en
+
+Decimal separator: point

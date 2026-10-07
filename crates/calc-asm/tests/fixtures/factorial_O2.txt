@@ -1,0 +1,29 @@
+0000000000401760 <factorial>:
+  401760:	cmp    edi,0x1
+  401763:	jle    4017c0 <factorial+0x60>
+  401765:	lea    esi,[rdi+0x1]
+  401768:	mov    eax,0x2
+  40176d:	mov    edx,0x1
+  401772:	test   sil,0x1
+  401776:	je     4017a0 <factorial+0x40>
+  401778:	mov    eax,0x3
+  40177d:	mov    edx,0x2
+  401782:	cmp    rax,rsi
+  401785:	je     4017b5 <factorial+0x55>
+  401787:	nop    DWORD PTR [rax]
+  40178a:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401795:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  4017a0:	imul   rdx,rax
+  4017a4:	lea    rcx,[rax+0x1]
+  4017a8:	add    rax,0x2
+  4017ac:	imul   rdx,rcx
+  4017b0:	cmp    rax,rsi
+  4017b3:	jne    4017a0 <factorial+0x40>
+  4017b5:	mov    rax,rdx
+  4017b8:	ret
+  4017b9:	nop    DWORD PTR [rax+0x0]
+  4017c0:	mov    edx,0x1
+  4017c5:	mov    rax,rdx
+  4017c8:	ret
+  4017c9:	nop    DWORD PTR [rax+0x0]
+

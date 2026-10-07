@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+
+repository=$(cd "$(dirname "$0")/.." && pwd)
+target=${CALC_TARGET_TRIPLE:-x86_64-unknown-linux-gnu}
+out=${CALC_RELEASE_DIR:-"$repository/target/release-artifact"}
+
+cd "$repository"
+
+if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+    echo "release: the tree has uncommitted changes; the artifact would say so too" >&2
+    exit 1
+fi
+
+commit=$(git rev-parse --short=12 HEAD)
+version=$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -1)
+
+RUSTFLAGS="-C target-feature=+crt-static" \
+    cargo build --release -p calc-cli --target "$target" >/dev/null
+
+mkdir -p "$out"
+name="calc-$version-$commit-$target"
+cp "target/$target/release/calc" "$out/$name"
+chmod 0755 "$out/$name"
+
+"$out/$name" --version
+if ldd "$out/$name" 2>&1 | grep -q "=>"; then
+    echo "linking dynamic; the artifact needs the libraries of the build host" >&2
+    exit 1
+fi
+echo "linking static"
+echo "artifact $out/$name"

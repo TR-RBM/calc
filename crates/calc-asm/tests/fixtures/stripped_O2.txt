@@ -1,0 +1,107 @@
+
+s:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <.init>:
+    1000:	endbr64
+    1004:	sub    rsp,0x8
+    1008:	mov    rax,QWORD PTR [rip+0x2fc1]        # 0x3fd0
+    100f:	test   rax,rax
+    1012:	je     0x1016
+    1014:	call   rax
+    1016:	add    rsp,0x8
+    101a:	ret
+
+Disassembly of section .text:
+
+0000000000001020 <.text>:
+    1020:	endbr64
+    1024:	xor    ebp,ebp
+    1026:	mov    r9,rdx
+    1029:	pop    rsi
+    102a:	mov    rdx,rsp
+    102d:	and    rsp,0xfffffffffffffff0
+    1031:	push   rax
+    1032:	push   rsp
+    1033:	xor    r8d,r8d
+    1036:	xor    ecx,ecx
+    1038:	lea    rdi,[rip+0x10c]        # 0x114b
+    103f:	call   QWORD PTR [rip+0x2f7b]        # 0x3fc0
+    1045:	hlt
+    1046:	cs nop WORD PTR [rax+rax*1+0x0]
+    1050:	lea    rdi,[rip+0x2fb9]        # 0x4010
+    1057:	lea    rax,[rip+0x2fb2]        # 0x4010
+    105e:	cmp    rax,rdi
+    1061:	je     0x1078
+    1063:	mov    rax,QWORD PTR [rip+0x2f5e]        # 0x3fc8
+    106a:	test   rax,rax
+    106d:	je     0x1078
+    106f:	jmp    rax
+    1071:	nop    DWORD PTR [rax+0x0]
+    1078:	ret
+    1079:	nop    DWORD PTR [rax+0x0]
+    1080:	lea    rdi,[rip+0x2f89]        # 0x4010
+    1087:	lea    rsi,[rip+0x2f82]        # 0x4010
+    108e:	sub    rsi,rdi
+    1091:	mov    rax,rsi
+    1094:	shr    rsi,0x3f
+    1098:	sar    rax,0x3
+    109c:	add    rsi,rax
+    109f:	sar    rsi,1
+    10a2:	je     0x10b8
+    10a4:	mov    rax,QWORD PTR [rip+0x2f2d]        # 0x3fd8
+    10ab:	test   rax,rax
+    10ae:	je     0x10b8
+    10b0:	jmp    rax
+    10b2:	nop    WORD PTR [rax+rax*1+0x0]
+    10b8:	ret
+    10b9:	nop    DWORD PTR [rax+0x0]
+    10c0:	endbr64
+    10c4:	cmp    BYTE PTR [rip+0x2f45],0x0        # 0x4010
+    10cb:	jne    0x1100
+    10cd:	push   rbp
+    10ce:	cmp    QWORD PTR [rip+0x2f0a],0x0        # 0x3fe0
+    10d6:	mov    rbp,rsp
+    10d9:	je     0x10e8
+    10db:	mov    rdi,QWORD PTR [rip+0x2f26]        # 0x4008
+    10e2:	call   QWORD PTR [rip+0x2ef8]        # 0x3fe0
+    10e8:	call   0x1050
+    10ed:	mov    BYTE PTR [rip+0x2f1c],0x1        # 0x4010
+    10f4:	pop    rbp
+    10f5:	ret
+    10f6:	cs nop WORD PTR [rax+rax*1+0x0]
+    1100:	ret
+    1101:	nop    DWORD PTR [rax+0x0]
+    1105:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+    1110:	endbr64
+    1114:	jmp    0x1080
+    1119:	nop    DWORD PTR [rax+0x0]
+    1120:	test   edi,edi
+    1122:	jle    0x113c
+    1124:	mov    eax,0x0
+    1129:	mov    edx,0x0
+    112e:	xchg   ax,ax
+    1130:	add    edx,eax
+    1132:	add    eax,0x1
+    1135:	cmp    edi,eax
+    1137:	jne    0x1130
+    1139:	mov    eax,edx
+    113b:	ret
+    113c:	mov    edx,0x0
+    1141:	jmp    0x1139
+    1143:	call   0x1120
+    1148:	add    eax,eax
+    114a:	ret
+    114b:	lea    edi,[rdi+rdi*2]
+    114e:	call   0x1143
+    1153:	ret
+
+Disassembly of section .fini:
+
+0000000000001154 <.fini>:
+    1154:	endbr64
+    1158:	sub    rsp,0x8
+    115c:	add    rsp,0x8
+    1160:	ret

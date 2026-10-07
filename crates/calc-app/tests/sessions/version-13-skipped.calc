@@ -1,0 +1,115 @@
+{
+  "format": "calc-session",
+  "version": 13,
+  "settings": {
+    "precision": "f64",
+    "backend": "automatic",
+    "units": null
+  },
+  "next_line_number": 3,
+  "lines": [
+    {
+      "id": "r1",
+      "name": null,
+      "input": "sqrt(2)",
+      "outcome": {
+        "status": "result",
+        "record": {
+          "kind": "machine_float",
+          "value": {
+            "type": "f64",
+            "bits": "0x3ff6a09e667f3bcd",
+            "decimal": "1.4142135623730951e0"
+          },
+          "unit": null,
+          "rounding_error": {
+            "status": "bound",
+            "bound": {
+              "type": "f64",
+              "bits": "0x3cb0000000000001",
+              "decimal": "2.2204460492503136e-16"
+            }
+          },
+          "uncertainty": null,
+          "method": {
+            "name": "plan_evaluation",
+            "parameters": {
+              "domain": "f64"
+            },
+            "convergence": null,
+            "condition": null,
+            "notes": []
+          },
+          "corpus_references": [
+            "M-NUM-D-005",
+            "M-NUM-D-006"
+          ],
+          "sources": [],
+          "recognized": {
+            "state": "not_run"
+          },
+          "seed": null,
+          "backend": {
+            "preference": "automatic",
+            "selected": "cpu",
+            "skipped": [],
+            "approximate_operations": false,
+            "modes": []
+          },
+          "dependencies": [],
+          "computed_at": "2026-09-15T12:41:07.312Z",
+          "duration_ns": 250,
+          "produced_by": "0.1.0"
+        }
+      },
+      "picture": null,
+      "reading": null
+    },
+    {
+      "id": "r2",
+      "name": null,
+      "input": "2 + 3",
+      "outcome": {
+        "status": "result",
+        "record": {
+          "kind": "exact_rational",
+          "value": {
+            "type": "integer",
+            "digits": "5"
+          },
+          "unit": null,
+          "rounding_error": {
+            "status": "none"
+          },
+          "uncertainty": null,
+          "method": {
+            "name": "exact_evaluation",
+            "parameters": {},
+            "convergence": null,
+            "condition": null,
+            "notes": []
+          },
+          "corpus_references": [],
+          "sources": [],
+          "recognized": {
+            "state": "not_run"
+          },
+          "seed": null,
+          "backend": {
+            "preference": "automatic",
+            "selected": "none",
+            "skipped": [],
+            "approximate_operations": false,
+            "modes": []
+          },
+          "dependencies": [],
+          "computed_at": "2026-09-15T12:41:07.312Z",
+          "duration_ns": 250,
+          "produced_by": "0.1.0"
+        }
+      },
+      "picture": null,
+      "reading": null
+    }
+  ]
+}

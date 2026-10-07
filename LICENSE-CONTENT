@@ -1,0 +1,23 @@
+Learning content in this project (the material written for learners under content/:
+explanations, examples, exercises, and other text written for the learning areas) is licensed
+under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+
+This does not cover source code, which is licensed under the Apache License, Version 2.0;
+see LICENSE.
+
+Under CC BY-SA 4.0 you are free to share and adapt this content for any purpose, even
+commercially, as long as you:
+
+  - Attribution: give appropriate credit, provide a link to the license, and indicate if
+    changes were made.
+  - ShareAlike: if you remix, transform, or build upon the content, you must distribute
+    your contributions under this same license.
+
+You should have received a copy of the license along with this work. If not, see:
+
+  Human-readable summary: https://creativecommons.org/licenses/by-sa/4.0/
+  Full legal code:        https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+The sources the content cites are named in content/sources/ with their own licence. A cited
+source is not covered by this licence; only its title, authors, year and identifier are
+recorded here.

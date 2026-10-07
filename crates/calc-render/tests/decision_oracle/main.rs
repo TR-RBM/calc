@@ -1,0 +1,13 @@
+mod encoding;
+mod figure;
+mod image_format;
+mod legend;
+mod pixels;
+mod polyline;
+mod precision;
+mod primitive_kinds;
+mod rendering;
+mod scalar_grid;
+mod scenes;
+mod settled_gutter;
+mod shape_kinds;

@@ -1,0 +1,17 @@
+[package]
+name = "calc-conformance"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-exec = { path = "../calc-exec" }
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+
+[dev-dependencies]
+calc-numbers = { path = "../calc-numbers" }
+
+[lints]
+workspace = true

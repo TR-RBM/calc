@@ -1,0 +1,61 @@
+case	input	expected
+M01	molar_mass(chem'H2O')	between(18.0147100077463253 g/mol, 18.0159900300867033 g/mol) range, both ends exact
+M02	molar_mass(chem'CO2')	between(44.0076600189232938 g/mol, 44.0111400734986038 g/mol) range, both ends exact
+M03	molar_mass(chem'NaCl')	between(58.4357692851273807818 g/mol, 58.446769397606104731 g/mol) range, both ends exact
+M04	molar_mass(chem'Ca(OH)2')	between(74.0877400318577282 g/mol, 74.0977601237432592 g/mol) range, both ends exact
+M05	molar_mass(chem'Al2(SO4)3')	between(342.128436347115227566 g/mol, 342.188317971454490058 g/mol) range, both ends exact
+M06	molar_mass(chem'(NH4)3PO4')	between(149.08325205710579835699 g/mol, 149.09200225198364334501 g/mol) range, both ends exact
+M07	molar_mass(chem'Fe4[Fe(CN)6]3')	between(859.1895403694515022 g/mol, 859.2688414349789628 g/mol) range, both ends exact
+M08	molar_mass(chem'CuSO4·5H2O')	between(249.6716701073588181 g/mol, 249.7040304170057301 g/mol) range, both ends exact
+M09	molar_mass(chem'MgSO4·7H2O')	between(246.4620901059786987 g/mol, 246.4940104116449967 g/mol) range, both ends exact
+M10	molar_mass(chem'C6H12O6')	between(180.1458600774627198 g/mol, 180.1655403008764518 g/mol) range, both ends exact
+M11	molar_mass(chem'C8H10N4O2')	between(194.1789800834969614 g/mol, 194.2025603243182752 g/mol) range, both ends exact
+M12	molar_mass(chem'C20H24N2O2')	between(324.3910801394881644 g/mol, 324.4407405418160358 g/mol) range, both ends exact
+M13	molar_mass(chem'LiCl')	between(42.38400001822512 g/mol, 42.45400007089818 g/mol) range, both ends exact
+M14	molar_mass(chem'Li2CO3')	between(73.8826900317695567 g/mol, 74.0049101235881997 g/mol) range, both ends exact
+M15	molar_mass(chem'H3BO3')	between(61.8266100265854423 g/mol, 61.8446401032805488 g/mol) range, both ends exact
+M16	molar_mass(chem'Na2B4O7·10H2O')	between(381.3438486839778548636 g/mol, 381.421829236974453762 g/mol) range, both ends exact
+M17	molar_mass(chem'SiO2')	between(60.0820600258352858 g/mol, 60.0855401003428518 g/mol) range, both ends exact
+M18	molar_mass(chem'SiCl4')	between(169.86800007304324 g/mol, 169.91400028375638 g/mol) range, both ends exact
+M19	molar_mass(chem'Tl2SO4')	between(504.8191202170722216 g/mol, 504.8450808430912836 g/mol) range, both ends exact
+M20	molar_mass(chem'TlBr')	between(284.28300012224169 g/mol, 284.29200047476764 g/mol) range, both ends exact
+M21	molar_mass(chem'KBr')	between(118.999200051169656 g/mol, 119.005400198739018 g/mol) range, both ends exact
+M22	molar_mass(chem'Br2')	between(159.80200006871486 g/mol, 159.81400026688938 g/mol) range, both ends exact
+M23	molar_mass(chem'MgCl2·6H2O')	between(203.2842600874122318 g/mol, 203.3169403395392898 g/mol) range, both ends exact
+M24	molar_mass(chem'Mg3(PO4)2')	between(262.85176409902625851398 g/mol, 262.86668444498736229002 g/mol) range, both ends exact
+M25	molar_mass(chem'H2SO4')	between(98.070800042170444 g/mol, 98.091300163812471 g/mol) range, both ends exact
+M26	molar_mass(chem'NH3')	between(17.0299500073228785 g/mol, 17.0316100284427887 g/mol) range, both ends exact
+M27	molar_mass(chem'Ar')	between(39.79200001711056 g/mol, 39.96300006673821 g/mol) range, both ends exact
+M28	molar_mass(chem'K4[Fe(CN)6]')	between(368.3319801583827514 g/mol, 368.3538806151509796 g/mol) range, both ends exact
+M29	molar_mass(chem'K3[Fe(CN)6]')	between(329.2337801415705254 g/mol, 329.2554805498566516 g/mol) range, both ends exact
+M30	molar_mass(chem'[Cu(NH3)4]SO4·H2O')	between(245.7326301056650309 g/mol, 245.7665104104300717 g/mol) range, both ends exact
+M31	molar_mass(chem'Ca3(PO4)2')	between(310.16176411936955851398 g/mol, 310.19168452402011229002 g/mol) range, both ends exact
+M32	molar_mass(chem'KAl(SO4)2·12H2O')	between(474.366498303977594183 g/mol, 474.421979492284704429 g/mol) range, both ends exact
+M33	molar_mass(chem'C2H5OH')	between(46.0652700198080661 g/mol, 46.0716300769396221 g/mol) range, both ends exact
+M34	molar_mass(chem'CH3COOH')	between(60.0486200258209066 g/mol, 60.0551801002921506 g/mol) range, both ends exact
+M35	molar_mass(chem'C12H22O11')	between(342.2770101471791143 g/mol, 342.3150905716662003 g/mol) range, both ends exact
+M36	molar_mass(chem'C9H8O4')	between(180.1452400774624532 g/mol, 180.1683603008811612 g/mol) range, both ends exact
+M37	molar_mass(chem'(CH3)3COH')	between(74.1158300318698069 g/mol, 74.1272701237925409 g/mol) range, both ends exact
+M38	molar_mass(chem'CH3(CH2)16COOH')	between(284.453100122314833 g/mol, 284.500300475115501 g/mol) range, both ends exact
+M39	molar_mass(chem'C6H5Cl')	between(112.542800048393404 g/mol, 112.5671501879871405 g/mol) range, both ends exact
+M40	molar_mass(chem'Pb(NO3)2')	between(330.1470401419632272 g/mol, 331.9531805543618106 g/mol) range, both ends exact
+B01	chem'CH4 + O2 -> CO2 + H2O'	CH4 + 2 O2 -> CO2 + 2 H2O exact
+B02	chem'H2O -> H2 + O2'	2 H2O -> 2 H2 + O2 exact
+B03	chem'N2 + O2 -> N2O5'	2 N2 + 5 O2 -> 2 N2O5 exact
+B04	chem'NH4NO3 -> N2 + O2 + H2O'	2 NH4NO3 -> 2 N2 + O2 + 4 H2O exact
+B05	chem'C2H6 + O2 -> H2O + CO2'	2 C2H6 + 7 O2 -> 6 H2O + 4 CO2 exact
+B06	chem'N2 + H2 -> NH3'	N2 + 3 H2 -> 2 NH3 exact
+B07	chem'K4[Fe(CN)6] + KMnO4 + H2SO4 -> KHSO4 + Fe2(SO4)3 + MnSO4 + HNO3 + CO2 + H2O'	10 K4[Fe(CN)6] + 122 KMnO4 + 299 H2SO4 -> 162 KHSO4 + 5 Fe2(SO4)3 + 122 MnSO4 + 60 HNO3 + 60 CO2 + 188 H2O exact
+B08	chem'CaCl2 + AgNO3 -> Ca(NO3)2 + AgCl'	CaCl2 + 2 AgNO3 -> Ca(NO3)2 + 2 AgCl exact
+B09	chem'CO2 + OH^- -> CO3^2- + H2O'	CO2 + 2 OH^- -> CO3^2- + H2O exact
+B10	chem'Cl^- + H2O -> OH^- + H2 + Cl2'	2 Cl^- + 2 H2O -> 2 OH^- + H2 + Cl2 exact
+B11	chem'KI + Pb(NO3)2 -> PbI2 + KNO3'	2 KI + Pb(NO3)2 -> PbI2 + 2 KNO3 exact
+B12	chem'Mg(OH)2 + HCl -> MgCl2 + H2O'	Mg(OH)2 + 2 HCl -> MgCl2 + 2 H2O exact
+B13	chem'Al + NH4ClO4 -> Al2O3 + AlCl3 + H2O + N2'	10 Al + 6 NH4ClO4 -> 4 Al2O3 + 2 AlCl3 + 12 H2O + 3 N2 exact
+B14	chem'Ga + Br2 -> GaBr3'	2 Ga + 3 Br2 -> 2 GaBr3 exact
+B15	chem'Fe^2+ + Cr2O7^2- + H^+ -> Fe^3+ + Cr^3+ + H2O'	6 Fe^2+ + Cr2O7^2- + 14 H^+ -> 6 Fe^3+ + 2 Cr^3+ + 7 H2O exact
+B16	chem'Cl2 + OH^- -> Cl^- + ClO3^- + H2O'	3 Cl2 + 6 OH^- -> 5 Cl^- + ClO3^- + 3 H2O exact
+B17	chem'Cu + H^+ + HNO3 -> Cu^2+ + NO + H2O'	3 Cu + 6 H^+ + 2 HNO3 -> 3 Cu^2+ + 2 NO + 4 H2O exact
+B18	chem'OH^- + Cr(OH)3 + MnO4^- -> CrO4^2- + MnO2 + H2O'	OH^- + Cr(OH)3 + MnO4^- -> CrO4^2- + MnO2 + 2 H2O exact
+B19	chem'H2O + MnO4^- + Br^- -> MnO2 + BrO3^- + OH^-'	H2O + 2 MnO4^- + Br^- -> 2 MnO2 + BrO3^- + 2 OH^- exact
+B20	chem'KMnO4 + H2O2 + H2SO4 -> KHSO4 + MnSO4 + H2O + O2'	not unique

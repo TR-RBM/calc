@@ -1,0 +1,26 @@
+
+r.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <square>:
+   0:	push   rbp
+   1:	mov    rbp,rsp
+   4:	mov    DWORD PTR [rbp-0x4],edi
+   7:	mov    eax,DWORD PTR [rbp-0x4]
+   a:	imul   eax,eax
+   d:	pop    rbp
+   e:	ret
+
+000000000000000f <use>:
+   f:	push   rbp
+  10:	mov    rbp,rsp
+  13:	sub    rsp,0x8
+  17:	mov    DWORD PTR [rbp-0x4],edi
+  1a:	mov    eax,DWORD PTR [rbp-0x4]
+  1d:	mov    edi,eax
+  1f:	call   24 <use+0x15>
+  24:	nop
+  25:	leave
+  26:	ret

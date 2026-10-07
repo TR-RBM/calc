@@ -1,0 +1,38 @@
+00000000004016e0 <fill>:
+  4016e0:	mov    r10,rdi
+  4016e3:	mov    r9d,esi
+  4016e6:	mov    r8d,edx
+  4016e9:	test   esi,esi
+  4016eb:	jle    401706 <fill+0x26>
+  4016ed:	mov    ecx,edx
+  4016ef:	xor    edi,edi
+  4016f1:	xor    esi,esi
+  4016f3:	test   r8d,r8d
+  4016f6:	jg     40171e <fill+0x3e>
+  4016f8:	add    esi,0x1
+  4016fb:	add    edi,r8d
+  4016fe:	add    ecx,0x1
+  401701:	cmp    r9d,esi
+  401704:	jne    4016f3 <fill+0x13>
+  401706:	ret
+  401707:	nop    WORD PTR [rax+rax*1+0x0]
+  401710:	add    esi,0x1
+  401713:	add    edi,r8d
+  401716:	add    ecx,0x1
+  401719:	cmp    esi,r9d
+  40171c:	je     401740 <fill+0x60>
+  40171e:	mov    edx,edi
+  401720:	mov    eax,esi
+  401722:	lea    rdx,[r10+rdx*4]
+  401726:	cs nop WORD PTR [rax+rax*1+0x0]
+  401730:	mov    DWORD PTR [rdx],eax
+  401732:	add    eax,0x1
+  401735:	add    rdx,0x4
+  401739:	cmp    eax,ecx
+  40173b:	jne    401730 <fill+0x50>
+  40173d:	jmp    401710 <fill+0x30>
+  40173f:	nop
+  401740:	ret
+  401741:	nop    DWORD PTR [rax+0x0]
+  401745:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+

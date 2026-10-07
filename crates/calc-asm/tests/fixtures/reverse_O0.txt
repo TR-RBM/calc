@@ -1,0 +1,46 @@
+0000000000401859 <reverse>:
+  401859:	push   rbp
+  40185a:	mov    rbp,rsp
+  40185d:	mov    QWORD PTR [rbp-0x18],rdi
+  401861:	mov    DWORD PTR [rbp-0x1c],esi
+  401864:	mov    DWORD PTR [rbp-0xc],0x0
+  40186b:	mov    eax,DWORD PTR [rbp-0x1c]
+  40186e:	sub    eax,0x1
+  401871:	mov    DWORD PTR [rbp-0x8],eax
+  401874:	jmp    4018dd <reverse+0x84>
+  401876:	mov    eax,DWORD PTR [rbp-0xc]
+  401879:	cdqe
+  40187b:	lea    rdx,[rax*4+0x0]
+  401883:	mov    rax,QWORD PTR [rbp-0x18]
+  401887:	add    rax,rdx
+  40188a:	mov    eax,DWORD PTR [rax]
+  40188c:	mov    DWORD PTR [rbp-0x4],eax
+  40188f:	mov    eax,DWORD PTR [rbp-0x8]
+  401892:	cdqe
+  401894:	lea    rdx,[rax*4+0x0]
+  40189c:	mov    rax,QWORD PTR [rbp-0x18]
+  4018a0:	add    rax,rdx
+  4018a3:	mov    edx,DWORD PTR [rbp-0xc]
+  4018a6:	movsxd rdx,edx
+  4018a9:	lea    rcx,[rdx*4+0x0]
+  4018b1:	mov    rdx,QWORD PTR [rbp-0x18]
+  4018b5:	add    rdx,rcx
+  4018b8:	mov    eax,DWORD PTR [rax]
+  4018ba:	mov    DWORD PTR [rdx],eax
+  4018bc:	mov    eax,DWORD PTR [rbp-0x8]
+  4018bf:	cdqe
+  4018c1:	lea    rdx,[rax*4+0x0]
+  4018c9:	mov    rax,QWORD PTR [rbp-0x18]
+  4018cd:	add    rdx,rax
+  4018d0:	mov    eax,DWORD PTR [rbp-0x4]
+  4018d3:	mov    DWORD PTR [rdx],eax
+  4018d5:	add    DWORD PTR [rbp-0xc],0x1
+  4018d9:	sub    DWORD PTR [rbp-0x8],0x1
+  4018dd:	mov    eax,DWORD PTR [rbp-0xc]
+  4018e0:	cmp    eax,DWORD PTR [rbp-0x8]
+  4018e3:	jl     401876 <reverse+0x1d>
+  4018e5:	nop
+  4018e6:	nop
+  4018e7:	pop    rbp
+  4018e8:	ret
+

@@ -1,0 +1,18 @@
+[package]
+name = "calc-exec-gpu"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-numbers = { path = "../calc-numbers" }
+calc-exec = { path = "../calc-exec" }
+
+[dev-dependencies]
+calc-conformance = { path = "../calc-conformance" }
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+
+[lints]
+workspace = true

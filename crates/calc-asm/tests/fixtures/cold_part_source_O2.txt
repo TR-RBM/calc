@@ -1,0 +1,71 @@
+	.file	"nr.c"
+	.intel_syntax noprefix
+	.text
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4
+	.globl	"checked"
+	.type	"checked", @function
+"checked":
+	test	edi, edi
+	js	.L2
+	mov	eax, 0
+	mov	edx, 0
+	je	.L1
+	test	dil, 1
+	je	.L3
+	mov	eax, 1
+	cmp	edi, 1
+	je	.L1
+	.p2align 4
+	.p2align 4
+	.p2align 3
+.L3:
+	lea	edx, 1[rdx+rax*2]
+	add	eax, 2
+	cmp	edi, eax
+	jne	.L3
+.L1:
+	mov	eax, edx
+	ret
+	.section	.text.unlikely
+	.type	"checked.cold", @function
+"checked.cold":
+.L2:
+	push	rax
+	call	"abort"@PLT
+	.text
+	.size	"checked", .-"checked"
+	.section	.text.unlikely
+	.size	"checked.cold", .-"checked.cold"
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.text
+.LHOTB1:
+	.p2align 4
+	.globl	"trapped"
+	.type	"trapped", @function
+"trapped":
+	test	edi, edi
+	js	.L19
+	lea	eax, [rdi+rdi]
+	ret
+	.section	.text.unlikely
+	.type	"trapped.cold", @function
+"trapped.cold":
+.L19:
+	ud2
+	.text
+	.size	"trapped", .-"trapped"
+	.section	.text.unlikely
+	.size	"trapped.cold", .-"trapped.cold"
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.ident	"GCC: (GNU) 16.2.1 20260810"
+	.section	.note.GNU-stack,"",@progbits

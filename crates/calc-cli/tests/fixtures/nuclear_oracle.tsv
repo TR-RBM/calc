@@ -1,0 +1,45 @@
+case	input	q_kev	expected
+N01	nuc'p + p -> ^2H + e+ + nu_e'	420.22133162	contains
+N02	nuc'p + e- + p -> ^2H + nu_e'	1442.219233	contains
+N03	nuc'^2H + p -> ^3He + gamma'	5493.4751	contains
+N04	nuc'^3He + ^3He -> ^4He + 2 p'	12859.579762	contains
+N05	nuc'^3He + ^4He -> ^7Be + gamma'	1587.1371	contains
+N06	nuc'^7Be + e- -> ^7Li + nu_e'	861.893	contains
+N07	nuc'^7Li + p -> 2 ^4He'	17346.244	contains
+N08	nuc'^7Be + p -> ^8B + gamma'	136.3997	contains
+N09	nuc'^8B -> ^8Be + e+ + nu_e'	16957.89939862	contains
+N10	nuc'^8Be -> 2 ^4He'	91.8399	contains
+N11	nuc'^12C + p -> ^13N + gamma'	1943.49	contains
+N12	nuc'^13N -> ^13C + e+ + nu_e'	1198.47389862	contains
+N13	nuc'^13C + p -> ^14N + gamma'	7550.5636	contains
+N14	nuc'^14N + p -> ^15O + gamma'	7296.7657	contains
+N15	nuc'^15O -> ^15N + e+ + nu_e'	1732.18619862	contains
+N16	nuc'^15N + p -> ^12C + ^4He'	4965.4933	contains
+N17	nuc'^2H + ^3H -> ^4He + n'	17589.2999	contains
+N18	nuc'^2H + ^2H -> ^3He + n'	3268.90885	contains
+N19	nuc'^2H + ^2H -> ^3H + p'	4032.663826	contains
+N20	nuc'^2H + ^3He -> ^4He + p'	18353.0548	contains
+N21	nuc'^238U -> ^234Th + ^4He'	4269.8581	contains
+N22	nuc'^210Po -> ^206Pb + ^4He'	5407.5307	contains
+N23	nuc'^14C -> ^14N + e- + anti_nu_e'	156.4765	contains
+N24	nuc'^3H -> ^3He + e- + anti_nu_e'	18.59202	contains
+N25	nuc'n -> p + e- + anti_nu_e'	782.347	contains
+N26	nuc'^60Co -> ^60Ni + e- + anti_nu_e'	2822.8058	contains
+N27	nuc'^18F -> ^18O + e+ + nu_e'	633.93089862	contains
+N28	nuc'^22Na -> ^22Ne + e+ + nu_e'	1821.32639862	contains
+N29	nuc'^55Fe + e- -> ^55Mn + nu_e'	231.1204	contains
+N30	nuc'^14N + n -> ^14C + p'	625.870546	contains
+N31	nuc'^6Li + n -> ^3H + ^4He'	4783.4717	contains
+N32	nuc'^10B + n -> ^7Li + ^4He'	2789.9082	contains
+N33	nuc'^235U + n -> ^141Ba + ^92Kr + 3 n'	173277.96688	contains
+N34	nuc'3 ^4He -> ^12C + gamma'	7274.74761	contains
+N35	nuc'^14N + ^4He -> ^17O + p'	-1191.874154	contains
+N36	nuc'^18F + e- -> ^18O + nu_e'	1655.9288	contains
+N37	nuc'^22Na + e- -> ^22Ne + nu_e'	2843.3243	contains
+N38	nuc'e+ + e- -> 2 gamma'	1021.99790138	contains
+N39	nuc'gamma + ^2H -> ^1H + n'	-2224.566231	contains
+X01	nuc'n -> p + e- + nu_e'	-	lepton
+X02	nuc'^22Na -> ^22Ne + e- + anti_nu_e'	-	charge
+X03	nuc'^238U -> ^234Th + ^3He'	-	mass number
+X04	nuc'^14C -> ^14N + e-'	-	lepton
+X05	nuc'^4He -> ^3H + p'	-19813.866094	impossible

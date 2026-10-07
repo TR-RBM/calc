@@ -1,0 +1,24 @@
+0000000000401930 <count_down>:
+  401930:	test   edi,edi
+  401932:	jle    401960 <count_down+0x30>
+  401934:	lea    eax,[rdi-0x1]
+  401937:	xor    edx,edx
+  401939:	test   dil,0x1
+  40193d:	je     401950 <count_down+0x20>
+  40193f:	mov    edx,eax
+  401941:	lea    eax,[rdi-0x2]
+  401944:	cmp    edi,0x1
+  401947:	je     40195c <count_down+0x2c>
+  401949:	nop    DWORD PTR [rax+0x0]
+  401950:	lea    edx,[rdx+rax*2-0x1]
+  401954:	sub    eax,0x2
+  401957:	cmp    eax,0xffffffff
+  40195a:	jne    401950 <count_down+0x20>
+  40195c:	mov    eax,edx
+  40195e:	ret
+  40195f:	nop
+  401960:	xor    edx,edx
+  401962:	mov    eax,edx
+  401964:	ret
+  401965:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+

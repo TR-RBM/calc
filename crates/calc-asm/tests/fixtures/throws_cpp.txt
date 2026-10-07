@@ -1,0 +1,144 @@
+
+libthrcpp.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <_init>:
+    1000:	endbr64
+    1004:	sub    rsp,0x8
+    1008:	mov    rax,QWORD PTR [rip+0x2fc9]        # 3fd8 <__gmon_start__>
+    100f:	test   rax,rax
+    1012:	je     1016 <_init+0x16>
+    1014:	call   rax
+    1016:	add    rsp,0x8
+    101a:	ret
+
+Disassembly of section .plt:
+
+0000000000001020 <__cxa_begin_catch@plt-0x10>:
+    1020:	push   QWORD PTR [rip+0x2fca]        # 3ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+    1026:	jmp    QWORD PTR [rip+0x2fcc]        # 3ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
+    102c:	nop    DWORD PTR [rax+0x0]
+
+0000000000001030 <__cxa_begin_catch@plt>:
+    1030:	jmp    QWORD PTR [rip+0x2fca]        # 4000 <__cxa_begin_catch@CXXABI_1.3>
+    1036:	push   0x0
+    103b:	jmp    1020 <_init+0x20>
+
+0000000000001040 <__cxa_allocate_exception@plt>:
+    1040:	jmp    QWORD PTR [rip+0x2fc2]        # 4008 <__cxa_allocate_exception@CXXABI_1.3>
+    1046:	push   0x1
+    104b:	jmp    1020 <_init+0x20>
+
+0000000000001050 <__cxa_end_catch@plt>:
+    1050:	jmp    QWORD PTR [rip+0x2fba]        # 4010 <__cxa_end_catch@CXXABI_1.3>
+    1056:	push   0x2
+    105b:	jmp    1020 <_init+0x20>
+
+0000000000001060 <_Z7checkedi@plt>:
+    1060:	jmp    QWORD PTR [rip+0x2fb2]        # 4018 <_Z7checkedi@@Base+0x2ebf>
+    1066:	push   0x3
+    106b:	jmp    1020 <_init+0x20>
+
+0000000000001070 <__cxa_throw@plt>:
+    1070:	jmp    QWORD PTR [rip+0x2faa]        # 4020 <__cxa_throw@CXXABI_1.3>
+    1076:	push   0x4
+    107b:	jmp    1020 <_init+0x20>
+
+0000000000001080 <_Unwind_Resume@plt>:
+    1080:	jmp    QWORD PTR [rip+0x2fa2]        # 4028 <_Unwind_Resume@GCC_3.0>
+    1086:	push   0x5
+    108b:	jmp    1020 <_init+0x20>
+
+Disassembly of section .text:
+
+0000000000001090 <deregister_tm_clones>:
+    1090:	lea    rdi,[rip+0x2fb1]        # 4048 <completed.0>
+    1097:	lea    rax,[rip+0x2faa]        # 4048 <completed.0>
+    109e:	cmp    rax,rdi
+    10a1:	je     10b8 <deregister_tm_clones+0x28>
+    10a3:	mov    rax,QWORD PTR [rip+0x2f26]        # 3fd0 <_ITM_deregisterTMCloneTable>
+    10aa:	test   rax,rax
+    10ad:	je     10b8 <deregister_tm_clones+0x28>
+    10af:	jmp    rax
+    10b1:	nop    DWORD PTR [rax+0x0]
+    10b8:	ret
+    10b9:	nop    DWORD PTR [rax+0x0]
+
+00000000000010c0 <register_tm_clones>:
+    10c0:	lea    rdi,[rip+0x2f81]        # 4048 <completed.0>
+    10c7:	lea    rsi,[rip+0x2f7a]        # 4048 <completed.0>
+    10ce:	sub    rsi,rdi
+    10d1:	mov    rax,rsi
+    10d4:	shr    rsi,0x3f
+    10d8:	sar    rax,0x3
+    10dc:	add    rsi,rax
+    10df:	sar    rsi,1
+    10e2:	je     10f8 <register_tm_clones+0x38>
+    10e4:	mov    rax,QWORD PTR [rip+0x2ef5]        # 3fe0 <_ITM_registerTMCloneTable>
+    10eb:	test   rax,rax
+    10ee:	je     10f8 <register_tm_clones+0x38>
+    10f0:	jmp    rax
+    10f2:	nop    WORD PTR [rax+rax*1+0x0]
+    10f8:	ret
+    10f9:	nop    DWORD PTR [rax+0x0]
+
+0000000000001100 <__do_global_dtors_aux>:
+    1100:	endbr64
+    1104:	cmp    BYTE PTR [rip+0x2f3d],0x0        # 4048 <completed.0>
+    110b:	jne    1140 <__do_global_dtors_aux+0x40>
+    110d:	push   rbp
+    110e:	cmp    QWORD PTR [rip+0x2eb2],0x0        # 3fc8 <__cxa_finalize@GLIBC_2.2.5>
+    1116:	mov    rbp,rsp
+    1119:	je     1128 <__do_global_dtors_aux+0x28>
+    111b:	mov    rdi,QWORD PTR [rip+0x2f0e]        # 4030 <__dso_handle>
+    1122:	call   QWORD PTR [rip+0x2ea0]        # 3fc8 <__cxa_finalize@GLIBC_2.2.5>
+    1128:	call   1090 <deregister_tm_clones>
+    112d:	mov    BYTE PTR [rip+0x2f14],0x1        # 4048 <completed.0>
+    1134:	pop    rbp
+    1135:	ret
+    1136:	cs nop WORD PTR [rax+rax*1+0x0]
+    1140:	ret
+    1141:	nop    DWORD PTR [rax+0x0]
+    1145:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+0000000000001150 <frame_dummy>:
+    1150:	endbr64
+    1154:	jmp    10c0 <register_tm_clones>
+
+0000000000001159 <_Z7checkedi>:
+    1159:	test   edi,edi
+    115b:	js     1161 <_Z7checkedi+0x8>
+    115d:	lea    eax,[rdi+0x1]
+    1160:	ret
+    1161:	sub    rsp,0x8
+    1165:	mov    edi,0x4
+    116a:	call   1040 <__cxa_allocate_exception@plt>
+    116f:	mov    rdi,rax
+    1172:	mov    DWORD PTR [rax],0x1
+    1178:	mov    edx,0x0
+    117d:	mov    rsi,QWORD PTR [rip+0x2e3c]        # 3fc0 <_ZTIi@CXXABI_1.3>
+    1184:	call   1070 <__cxa_throw@plt>
+
+0000000000001189 <_Z6calleri>:
+    1189:	sub    rsp,0x8
+    118d:	call   1060 <_Z7checkedi@plt>
+    1192:	jmp    11b1 <_Z6calleri+0x28>
+    1194:	mov    rdi,rax
+    1197:	cmp    rdx,0x1
+    119b:	je     11a2 <_Z6calleri+0x19>
+    119d:	call   1080 <_Unwind_Resume@plt>
+    11a2:	call   1030 <__cxa_begin_catch@plt>
+    11a7:	call   1050 <__cxa_end_catch@plt>
+    11ac:	mov    eax,0xffffffff
+    11b1:	add    rsp,0x8
+    11b5:	ret
+
+Disassembly of section .fini:
+
+00000000000011b8 <_fini>:
+    11b8:	endbr64
+    11bc:	sub    rsp,0x8
+    11c0:	add    rsp,0x8
+    11c4:	ret

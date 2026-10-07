@@ -1,0 +1,19 @@
+[package]
+name = "calc-viz"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-numbers = { path = "../calc-numbers" }
+calc-expr = { path = "../calc-expr" }
+calc-exec = { path = "../calc-exec" }
+calc-core = { path = "../calc-core" }
+
+[dev-dependencies]
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+
+[lints]
+workspace = true

@@ -1,0 +1,23 @@
+[package]
+name = "calc-core"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-exec = { path = "../calc-exec" }
+calc-expr = { path = "../calc-expr" }
+calc-kernels = { path = "../calc-kernels" }
+calc-numbers = { path = "../calc-numbers" }
+calc-sort = { path = "../calc-sort" }
+calc-units = { path = "../calc-units" }
+
+[dev-dependencies]
+calc-conformance = { path = "../calc-conformance" }
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+calc-syntax = { path = "../calc-syntax" }
+
+[lints]
+workspace = true

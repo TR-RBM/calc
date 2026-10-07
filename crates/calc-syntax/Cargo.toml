@@ -1,0 +1,15 @@
+[package]
+name = "calc-syntax"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-expr = { path = "../calc-expr" }
+calc-numbers = { path = "../calc-numbers" }
+calc-units = { path = "../calc-units" }
+
+[lints]
+workspace = true

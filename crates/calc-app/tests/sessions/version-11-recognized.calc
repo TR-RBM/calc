@@ -1,0 +1,83 @@
+{
+  "format": "calc-session",
+  "version": 11,
+  "settings": {
+    "precision": "f64",
+    "backend": "automatic",
+    "units": null
+  },
+  "next_line_number": 2,
+  "lines": [
+    {
+      "id": "r1",
+      "name": null,
+      "input": "3^2 + 4^2",
+      "outcome": {
+        "status": "result",
+        "record": {
+          "kind": "exact_rational",
+          "value": {
+            "type": "integer",
+            "digits": "25"
+          },
+          "unit": null,
+          "rounding_error": {
+            "status": "none"
+          },
+          "uncertainty": null,
+          "method": {
+            "name": "exact_evaluation",
+            "parameters": {},
+            "convergence": null,
+            "condition": null,
+            "notes": []
+          },
+          "corpus_references": [],
+          "sources": [],
+          "recognized": {
+            "concept_set_version": "0123456789abcdef",
+            "matches": [
+              {
+                "concept": "pythagoras",
+                "pattern": "sum-of-squares",
+                "coverage": {
+                  "type": "rational",
+                  "numerator": "3",
+                  "denominator": "4"
+                },
+                "site": "3^2 + 4^2",
+                "bindings": [
+                  {
+                    "variable": "x",
+                    "expression": "3"
+                  },
+                  {
+                    "variable": "y",
+                    "expression": "4"
+                  }
+                ],
+                "holds": [
+                  true
+                ]
+              }
+            ]
+          },
+          "seed": null,
+          "backend": {
+            "preference": "automatic",
+            "selected": "cpu",
+            "skipped": [],
+            "approximate_operations": false,
+            "modes": []
+          },
+          "dependencies": [],
+          "computed_at": "2026-09-16T05:00:00.000Z",
+          "duration_ns": 250,
+          "produced_by": "0.1.0"
+        }
+      },
+      "picture": null,
+      "reading": null
+    }
+  ]
+}

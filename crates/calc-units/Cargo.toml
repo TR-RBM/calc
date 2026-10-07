@@ -1,0 +1,13 @@
+[package]
+name = "calc-units"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-numbers = { path = "../calc-numbers" }
+
+[lints]
+workspace = true

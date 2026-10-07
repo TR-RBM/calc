@@ -1,0 +1,183 @@
+
+nr:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000401000 <_init>:
+  401000:	endbr64
+  401004:	sub    rsp,0x8
+  401008:	mov    rax,QWORD PTR [rip+0x2fc9]        # 403fd8 <__gmon_start__>
+  40100f:	test   rax,rax
+  401012:	je     401016 <_init+0x16>
+  401014:	call   rax
+  401016:	add    rsp,0x8
+  40101a:	ret
+
+Disassembly of section .plt:
+
+0000000000401020 <abort@plt-0x10>:
+  401020:	push   QWORD PTR [rip+0x2fca]        # 403ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+  401026:	jmp    QWORD PTR [rip+0x2fcc]        # 403ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
+  40102c:	nop    DWORD PTR [rax+0x0]
+
+0000000000401030 <abort@plt>:
+  401030:	jmp    QWORD PTR [rip+0x2fca]        # 404000 <abort@GLIBC_2.2.5>
+  401036:	push   0x0
+  40103b:	jmp    401020 <_init+0x20>
+
+0000000000401040 <atoi@plt>:
+  401040:	jmp    QWORD PTR [rip+0x2fc2]        # 404008 <atoi@GLIBC_2.2.5>
+  401046:	push   0x1
+  40104b:	jmp    401020 <_init+0x20>
+
+Disassembly of section .text:
+
+0000000000401050 <checked.cold>:
+  401050:	push   rax
+  401051:	call   401030 <abort@plt>
+
+0000000000401056 <trapped.cold>:
+  401056:	ud2
+  401058:	nop    DWORD PTR [rax+rax*1+0x0]
+
+0000000000401060 <_start>:
+  401060:	endbr64
+  401064:	xor    ebp,ebp
+  401066:	mov    r9,rdx
+  401069:	pop    rsi
+  40106a:	mov    rdx,rsp
+  40106d:	and    rsp,0xfffffffffffffff0
+  401071:	push   rax
+  401072:	push   rsp
+  401073:	xor    r8d,r8d
+  401076:	xor    ecx,ecx
+  401078:	mov    rdi,0x401156
+  40107f:	call   QWORD PTR [rip+0x2f43]        # 403fc8 <__libc_start_main@GLIBC_2.34>
+  401085:	hlt
+  401086:	cs nop WORD PTR [rax+rax*1+0x0]
+
+0000000000401090 <_dl_relocate_static_pie>:
+  401090:	endbr64
+  401094:	ret
+  401095:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+00000000004010a0 <_dl_relocate_static_pie_ifunc>:
+  4010a0:	endbr64
+  4010a4:	ret
+  4010a5:	cs nop WORD PTR [rax+rax*1+0x0]
+  4010af:	nop
+
+00000000004010b0 <deregister_tm_clones>:
+  4010b0:	mov    eax,0x404020
+  4010b5:	cmp    rax,0x404020
+  4010bb:	je     4010d0 <deregister_tm_clones+0x20>
+  4010bd:	mov    rax,QWORD PTR [rip+0x2f0c]        # 403fd0 <_ITM_deregisterTMCloneTable>
+  4010c4:	test   rax,rax
+  4010c7:	je     4010d0 <deregister_tm_clones+0x20>
+  4010c9:	mov    edi,0x404020
+  4010ce:	jmp    rax
+  4010d0:	ret
+  4010d1:	nop    DWORD PTR [rax+0x0]
+  4010d5:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+00000000004010e0 <register_tm_clones>:
+  4010e0:	mov    esi,0x404020
+  4010e5:	sub    rsi,0x404020
+  4010ec:	mov    rax,rsi
+  4010ef:	shr    rsi,0x3f
+  4010f3:	sar    rax,0x3
+  4010f7:	add    rsi,rax
+  4010fa:	sar    rsi,1
+  4010fd:	je     401118 <register_tm_clones+0x38>
+  4010ff:	mov    rax,QWORD PTR [rip+0x2eda]        # 403fe0 <_ITM_registerTMCloneTable>
+  401106:	test   rax,rax
+  401109:	je     401118 <register_tm_clones+0x38>
+  40110b:	mov    edi,0x404020
+  401110:	jmp    rax
+  401112:	nop    WORD PTR [rax+rax*1+0x0]
+  401118:	ret
+  401119:	nop    DWORD PTR [rax+0x0]
+
+0000000000401120 <__do_global_dtors_aux>:
+  401120:	endbr64
+  401124:	cmp    BYTE PTR [rip+0x2ef5],0x0        # 404020 <__TMC_END__>
+  40112b:	jne    401140 <__do_global_dtors_aux+0x20>
+  40112d:	push   rbp
+  40112e:	mov    rbp,rsp
+  401131:	call   4010b0 <deregister_tm_clones>
+  401136:	mov    BYTE PTR [rip+0x2ee3],0x1        # 404020 <__TMC_END__>
+  40113d:	pop    rbp
+  40113e:	ret
+  40113f:	nop
+  401140:	ret
+  401141:	nop    DWORD PTR [rax+0x0]
+  401145:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+0000000000401150 <frame_dummy>:
+  401150:	endbr64
+  401154:	jmp    4010e0 <register_tm_clones>
+
+0000000000401156 <main>:
+  401156:	push   rbp
+  401157:	mov    rbp,rsp
+  40115a:	push   rbx
+  40115b:	sub    rsp,0x18
+  40115f:	mov    DWORD PTR [rbp-0x14],edi
+  401162:	mov    QWORD PTR [rbp-0x20],rsi
+  401166:	mov    rax,QWORD PTR [rbp-0x20]
+  40116a:	add    rax,0x8
+  40116e:	mov    rax,QWORD PTR [rax]
+  401171:	mov    rdi,rax
+  401174:	call   401040 <atoi@plt>
+  401179:	mov    edi,eax
+  40117b:	call   4011b0 <checked>
+  401180:	mov    ebx,eax
+  401182:	mov    rax,QWORD PTR [rbp-0x20]
+  401186:	add    rax,0x8
+  40118a:	mov    rax,QWORD PTR [rax]
+  40118d:	mov    rdi,rax
+  401190:	call   401040 <atoi@plt>
+  401195:	mov    edi,eax
+  401197:	call   4011f0 <trapped>
+  40119c:	add    eax,ebx
+  40119e:	mov    rbx,QWORD PTR [rbp-0x8]
+  4011a2:	leave
+  4011a3:	ret
+  4011a4:	cs nop WORD PTR [rax+rax*1+0x0]
+  4011ae:	xchg   ax,ax
+
+00000000004011b0 <checked>:
+  4011b0:	test   edi,edi
+  4011b2:	js     401050 <checked.cold>
+  4011b8:	mov    eax,0x0
+  4011bd:	mov    edx,0x0
+  4011c2:	je     4011eb <checked+0x3b>
+  4011c4:	test   dil,0x1
+  4011c8:	je     4011e0 <checked+0x30>
+  4011ca:	mov    eax,0x1
+  4011cf:	cmp    edi,0x1
+  4011d2:	je     4011eb <checked+0x3b>
+  4011d4:	nop
+  4011d5:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  4011e0:	lea    edx,[rdx+rax*2+0x1]
+  4011e4:	add    eax,0x2
+  4011e7:	cmp    edi,eax
+  4011e9:	jne    4011e0 <checked+0x30>
+  4011eb:	mov    eax,edx
+  4011ed:	ret
+  4011ee:	xchg   ax,ax
+
+00000000004011f0 <trapped>:
+  4011f0:	test   edi,edi
+  4011f2:	js     401056 <trapped.cold>
+  4011f8:	lea    eax,[rdi+rdi*1]
+  4011fb:	ret
+
+Disassembly of section .fini:
+
+00000000004011fc <_fini>:
+  4011fc:	endbr64
+  401200:	sub    rsp,0x8
+  401204:	add    rsp,0x8
+  401208:	ret

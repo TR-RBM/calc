@@ -1,0 +1,15 @@
+0000000000401898 <poly>:
+  401898:	mov    rax,rdi
+  40189b:	mov    edi,edx
+  40189d:	lea    edx,[rsi-0x1]
+  4018a0:	movsxd rsi,esi
+  4018a3:	lea    rcx,[rax+rsi*4]
+  4018a7:	xor    eax,eax
+  4018a9:	test   edx,edx
+  4018ab:	js     4018ba <poly+0x22>
+  4018ad:	sub    rcx,0x4
+  4018b1:	imul   eax,edi
+  4018b4:	dec    edx
+  4018b6:	add    eax,DWORD PTR [rcx]
+  4018b8:	jmp    4018a9 <poly+0x11>
+  4018ba:	ret

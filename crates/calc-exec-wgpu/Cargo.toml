@@ -1,0 +1,29 @@
+[package]
+name = "calc-exec-wgpu"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+calc-exec = { path = "../calc-exec" }
+calc-exec-gpu = { path = "../calc-exec-gpu" }
+wgpu = { version = "=30.0.1", default-features = false, features = ["std", "vulkan", "wgsl"] }
+
+[dev-dependencies]
+calc-conformance = { path = "../calc-conformance" }
+calc-exec-cpu = { path = "../calc-exec-cpu" }
+
+[[test]]
+name = "host_conformance"
+harness = false
+test = false
+
+[[test]]
+name = "host_probe"
+harness = false
+test = false
+
+[lints]
+workspace = true

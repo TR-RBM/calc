@@ -1,0 +1,100 @@
+
+libthr.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <_init>:
+    1000:	endbr64
+    1004:	sub    rsp,0x8
+    1008:	mov    rax,QWORD PTR [rip+0x2fc1]        # 3fd0 <__gmon_start__>
+    100f:	test   rax,rax
+    1012:	je     1016 <_init+0x16>
+    1014:	call   rax
+    1016:	add    rsp,0x8
+    101a:	ret
+
+Disassembly of section .plt:
+
+0000000000001020 <pthread_exit@plt-0x10>:
+    1020:	push   QWORD PTR [rip+0x2fca]        # 3ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+    1026:	jmp    QWORD PTR [rip+0x2fcc]        # 3ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
+    102c:	nop    DWORD PTR [rax+0x0]
+
+0000000000001030 <pthread_exit@plt>:
+    1030:	jmp    QWORD PTR [rip+0x2fca]        # 4000 <pthread_exit@GLIBC_2.2.5>
+    1036:	push   0x0
+    103b:	jmp    1020 <_init+0x20>
+
+Disassembly of section .text:
+
+0000000000001040 <deregister_tm_clones>:
+    1040:	lea    rdi,[rip+0x2fc9]        # 4010 <completed.0>
+    1047:	lea    rax,[rip+0x2fc2]        # 4010 <completed.0>
+    104e:	cmp    rax,rdi
+    1051:	je     1068 <deregister_tm_clones+0x28>
+    1053:	mov    rax,QWORD PTR [rip+0x2f6e]        # 3fc8 <_ITM_deregisterTMCloneTable>
+    105a:	test   rax,rax
+    105d:	je     1068 <deregister_tm_clones+0x28>
+    105f:	jmp    rax
+    1061:	nop    DWORD PTR [rax+0x0]
+    1068:	ret
+    1069:	nop    DWORD PTR [rax+0x0]
+
+0000000000001070 <register_tm_clones>:
+    1070:	lea    rdi,[rip+0x2f99]        # 4010 <completed.0>
+    1077:	lea    rsi,[rip+0x2f92]        # 4010 <completed.0>
+    107e:	sub    rsi,rdi
+    1081:	mov    rax,rsi
+    1084:	shr    rsi,0x3f
+    1088:	sar    rax,0x3
+    108c:	add    rsi,rax
+    108f:	sar    rsi,1
+    1092:	je     10a8 <register_tm_clones+0x38>
+    1094:	mov    rax,QWORD PTR [rip+0x2f3d]        # 3fd8 <_ITM_registerTMCloneTable>
+    109b:	test   rax,rax
+    109e:	je     10a8 <register_tm_clones+0x38>
+    10a0:	jmp    rax
+    10a2:	nop    WORD PTR [rax+rax*1+0x0]
+    10a8:	ret
+    10a9:	nop    DWORD PTR [rax+0x0]
+
+00000000000010b0 <__do_global_dtors_aux>:
+    10b0:	endbr64
+    10b4:	cmp    BYTE PTR [rip+0x2f55],0x0        # 4010 <completed.0>
+    10bb:	jne    10f0 <__do_global_dtors_aux+0x40>
+    10bd:	push   rbp
+    10be:	cmp    QWORD PTR [rip+0x2f1a],0x0        # 3fe0 <__cxa_finalize@GLIBC_2.2.5>
+    10c6:	mov    rbp,rsp
+    10c9:	je     10d8 <__do_global_dtors_aux+0x28>
+    10cb:	mov    rdi,QWORD PTR [rip+0x2f36]        # 4008 <__dso_handle>
+    10d2:	call   QWORD PTR [rip+0x2f08]        # 3fe0 <__cxa_finalize@GLIBC_2.2.5>
+    10d8:	call   1040 <deregister_tm_clones>
+    10dd:	mov    BYTE PTR [rip+0x2f2c],0x1        # 4010 <completed.0>
+    10e4:	pop    rbp
+    10e5:	ret
+    10e6:	cs nop WORD PTR [rax+rax*1+0x0]
+    10f0:	ret
+    10f1:	nop    DWORD PTR [rax+0x0]
+    10f5:	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+0000000000001100 <frame_dummy>:
+    1100:	endbr64
+    1104:	jmp    1070 <register_tm_clones>
+
+0000000000001109 <worker>:
+    1109:	test   rdi,rdi
+    110c:	jne    1114 <worker+0xb>
+    110e:	mov    eax,0x0
+    1113:	ret
+    1114:	sub    rsp,0x8
+    1118:	mov    edi,0x0
+    111d:	call   1030 <pthread_exit@plt>
+
+Disassembly of section .fini:
+
+0000000000001124 <_fini>:
+    1124:	endbr64
+    1128:	sub    rsp,0x8
+    112c:	add    rsp,0x8
+    1130:	ret

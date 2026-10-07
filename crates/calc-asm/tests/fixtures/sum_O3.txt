@@ -1,0 +1,48 @@
+0000000000401690 <sum>:
+  401690:	test   esi,esi
+  401692:	jle    401720 <sum+0x90>
+  401698:	lea    eax,[rsi-0x1]
+  40169b:	cmp    eax,0x2
+  40169e:	jbe    401723 <sum+0x93>
+  4016a4:	mov    ecx,esi
+  4016a6:	mov    rax,rdi
+  4016a9:	pxor   xmm0,xmm0
+  4016ad:	shr    ecx,0x2
+  4016b0:	mov    edx,ecx
+  4016b2:	shl    rdx,0x4
+  4016b6:	add    rdx,rdi
+  4016b9:	nop    DWORD PTR [rax+0x0]
+  4016c0:	movdqu xmm2,XMMWORD PTR [rax]
+  4016c4:	add    rax,0x10
+  4016c8:	paddd  xmm0,xmm2
+  4016cc:	cmp    rax,rdx
+  4016cf:	jne    4016c0 <sum+0x30>
+  4016d1:	movdqa xmm1,xmm0
+  4016d5:	lea    edx,[rcx*4+0x0]
+  4016dc:	psrldq xmm1,0x8
+  4016e1:	paddd  xmm0,xmm1
+  4016e5:	movdqa xmm1,xmm0
+  4016e9:	psrldq xmm1,0x4
+  4016ee:	paddd  xmm0,xmm1
+  4016f2:	movd   eax,xmm0
+  4016f6:	cmp    esi,edx
+  4016f8:	je     401722 <sum+0x92>
+  4016fa:	mov    ecx,edx
+  4016fc:	lea    r8d,[rdx+0x1]
+  401700:	add    eax,DWORD PTR [rdi+rcx*4]
+  401703:	cmp    esi,r8d
+  401706:	jle    401722 <sum+0x92>
+  401708:	add    edx,0x2
+  40170b:	add    eax,DWORD PTR [rdi+rcx*4+0x4]
+  40170f:	cmp    esi,edx
+  401711:	jle    401722 <sum+0x92>
+  401713:	add    eax,DWORD PTR [rdi+rcx*4+0x8]
+  401717:	ret
+  401718:	nop    DWORD PTR [rax+rax*1+0x0]
+  401720:	xor    eax,eax
+  401722:	ret
+  401723:	xor    edx,edx
+  401725:	xor    eax,eax
+  401727:	jmp    4016fa <sum+0x6a>
+  401729:	nop    DWORD PTR [rax+0x0]
+

@@ -1,0 +1,81 @@
+# Builds the release files when a version tag is pushed:
+#   git tag -a v0.1.0 -m "calc 0.1.0" && git push origin v0.1.0
+#
+# The version of crates/calc-cli has to match the tag.
+#
+# Started by hand (Actions > release > Run workflow) it builds everything
+# but publishes nothing; the files are kept as run artifacts.
+
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  linux:
+    name: linux x86_64
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that the version matches the tag
+        if: github.ref_type == 'tag'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          crate="$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -n 1)"
+          echo "tag $tag, crates/calc-cli $crate"
+          test "$tag" = "$crate"
+
+      - name: Install the Rust toolchain
+        run: |
+          rustup update stable
+          rustup default stable
+
+      # Linked statically, so the same binary runs on every distribution.
+      - name: Build
+        run: CALC_RELEASE_DIR="$PWD/build" tools/release
+
+      - name: Package
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/calc-cli/Cargo.toml | head -n 1)"
+          name="calc-v$version-x86_64-linux"
+          mkdir "$name" dist
+          cp build/calc-* "$name/calc"
+          cp README.md LICENSE LICENSE-CONTENT "$name/"
+          "$name/calc" --version
+          tar czf "dist/$name.tar.gz" "$name"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-x86_64
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    name: publish release
+    if: github.ref_type == 'tag'
+    needs: [linux]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          cd dist
+          sha256sum * > SHA256SUMS
+          cat SHA256SUMS
+          gh release create "$GITHUB_REF_NAME" --title "calc ${GITHUB_REF_NAME#v}" --generate-notes --verify-tag ./*

@@ -1,0 +1,3 @@
+# de
+
+Decimal separator: comma
